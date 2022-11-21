@@ -1,0 +1,33 @@
+@import '../../styles//general/mixins.scss';
+@import '../../styles/general/varibles.scss';
+
+.header {
+
+    &__container {
+        @include flexBox($ai: center, $jc: start, $fd: row, $fw: no-wrap);
+    }
+
+    &__logo {
+         
+        height: 10vh;
+
+        a {
+            img {
+                @include widhtHeight($w: 100%, $h: 100%);
+            }
+        }
+    }
+
+    &__nav {
+        @include widhtHeight($w: 100%);
+
+        ul {
+            @include flexBox($ai: center, $jc: start, $fd: row, $fw: nowrap);
+
+            li {
+                padding: 0 .6rem;
+                font: normal 2rem/1rem "Arial", "Monaco", sans-serif;
+            }
+        }
+    }
+}

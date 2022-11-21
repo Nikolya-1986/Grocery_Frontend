@@ -1,0 +1,20 @@
+@mixin flexBox($ai: center, $jc: center, $fd: row, $fw: wrap) {
+    display: flex !important;
+    align-items: $ai !important;
+    justify-content: $jc !important;
+    flex-direction: $fd !important;
+    flex-wrap: $fw !important;
+}
+
+@mixin widhtHeight($w: fit-content, $h: fit-content) {
+    width: $w !important;
+    height: $h !important;
+}
+
+@mixin positionAbsolute($t: none, $r: none, $b: none, $l: none) {
+    position: absolute !important;
+    top: $t !important;
+    right: $r !important;
+    bottom: $b !important;
+    left: $l !important;
+}

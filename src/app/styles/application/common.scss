@@ -1,0 +1,37 @@
+@use '../general/varibles.scss' as var;
+
+* {
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+        background-color: #af1313;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: linear-gradient(180deg, #00c6fb, #005bea);
+    }
+}
+ 
+body {
+    margin: 0; 
+    font-family: Quicksand, sans-serif;
+    font-size: 16px;
+}
+ 
+a {
+    text-decoration: none;
+}
+ 
+ul {
+ 
+    li {
+        list-style: none;
+    }
+}
