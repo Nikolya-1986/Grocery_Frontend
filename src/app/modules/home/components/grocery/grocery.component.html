@@ -1,0 +1,47 @@
+<section class="grocery grocery__container">
+    <div class="grocery__header">
+        <div 
+            class="grocery__header-wrapper"
+            >
+            <img 
+                src="{{ grocery.imageUrl }}"
+            >
+        </div>
+    </div>
+    <div class="grocery__body content">
+        <p>
+            {{ grocery.name }}
+        </p>
+        <span class="grocery__favorite {{ grocery.favorite ? '' : 'not' }}"> 
+            &#9829;
+        </span>
+        <div class="grocery__star">
+            <ng-rating-bar
+                [value]="grocery.star"
+                [ratingCount]="5"
+                colorActive="red"
+                colorDefault="gray"
+                [resetAble]="true"
+                >
+            </ng-rating-bar>
+        </div>
+        <div class="grocery__extra">
+            <div class="grocery__origins">
+                <span>
+                    {{ grocery.origin }} 
+                </span>
+            </div>
+            <div class="grocery__cook-time">
+                <span>
+                    🕑
+                </span>
+                {{ grocery.cookTime }}
+            </div>
+        </div>
+    </div>
+    <div class="grocery__footer content">
+        <p>
+            {{ grocery.price | currency }} / {{ grocery.weight }} gr.
+        </p>
+    </div>
+</section>

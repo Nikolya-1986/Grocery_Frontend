@@ -16,7 +16,7 @@ export class ErrorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public goToHome(): void {
+  public goToGrocery(): void {
     this.router.navigate(["/home"]);
   }
 

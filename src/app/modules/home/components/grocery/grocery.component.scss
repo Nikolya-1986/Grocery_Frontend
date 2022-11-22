@@ -1,0 +1,75 @@
+@import '../../../../styles//general/mixins.scss';
+@import '../../../../styles/general/varibles.scss';
+
+.grocery {
+    @include widhtHeight($w: 28rem);
+    @include flexBox($ai: stretch, $jc: flex-start, $fd: column, $fw: nowrap);
+    border: 1px solid $color-white_2; 
+    border-radius: 1rem;
+    margin: .5rem;
+    overflow: hidden;
+    color: $color-red;
+     
+    &__header {
+        overflow: hidden;
+        cursor: pointer;
+        
+        img {
+            @include widhtHeight($w: 28rem, $h: 265px);
+            vertical-align: middle;
+        }
+    }
+     
+    &__body {
+        position: relative;
+        
+        p {
+            margin: 0;
+        }
+     
+        .grocery__favorite {
+            @include positionAbsolute($t: 0rem, $r: 1rem);
+            font-size: 1.6rem;
+        
+            &.not {
+                color: $color-black;
+            }
+        }
+     
+        .grocery__star {
+            margin-bottom: .2rem;
+        }
+        
+        .grocery__extra {
+            @include flexBox($ai: center, $jc: space-between);
+            
+            .grocery__origins {
+
+                span {
+                    border-color: $color-whitesmoke;
+                    color: $color-gray;
+                    font-size: 1rem;
+                }
+            }
+            .grocery__cook-time {
+                font-size: 1.2rem;
+                text-align: right;
+            }
+        }
+        
+    } 
+
+    &__footer {
+        @include flexBox($jc: space-between);
+        color: #424242;
+        margin-top: .2rem;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .content {
+        padding: .5rem 1rem;
+    }
+}

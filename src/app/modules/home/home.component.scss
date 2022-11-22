@@ -1,0 +1,16 @@
+@import '../../styles/general/mixins.scss';
+@import '../../styles/general/varibles.scss';
+
+.home {
+
+    &__container {
+
+        ul {
+            padding: 0;
+
+            li {
+                @include flexBox($jc: flex-start);
+            }
+        }
+    }
+}
