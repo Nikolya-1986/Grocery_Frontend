@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Grocery } from '../../model/grocery.model';
 
 @Component({
@@ -6,13 +6,21 @@ import { Grocery } from '../../model/grocery.model';
   templateUrl: './grocery.component.html',
   styleUrls: ['./grocery.component.scss']
 })
-export class GroceryComponent implements OnInit {
+export class GroceryComponent implements AfterContentInit {
+
+  @ContentChild('contentImage', { read: ElementRef<HTMLImageElement>, static: false }) private imageElementRef!: ElementRef<HTMLImageElement>;
 
   @Input() grocery!: Grocery;
-  
-  constructor() { }
+  @Input() isPreloader!: boolean | any;
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private renderer: Renderer2,
+  ) { }
+
+  public ngAfterContentInit(): void {
+    // this.renderer.setStyle(this.imageElementRef.nativeElement, "position", "fixed");
+    // this.renderer.setStyle(this.imageElementRef.nativeElement, "top", "25%");
+    // this.renderer.setStyle(this.imageElementRef.nativeElement, "left", "40%");
+  };
 
 }

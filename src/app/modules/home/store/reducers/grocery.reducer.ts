@@ -11,5 +11,5 @@ export const groceryReducer = createReducer(
             ...store,
             groceries: action.groceries,
         }
-    })
+    }),
 )

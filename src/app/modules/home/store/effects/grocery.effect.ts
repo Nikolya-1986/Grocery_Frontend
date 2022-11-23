@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 
-import { GroceryService } from '../../services/grocery.service';
+import { sharedActions } from '../../../../store/shared/actions/shared.action';
+import { SharedStoreFacade } from '../../../../store/shared/shared.facade';
+import { Grocery } from '../../model/grocery.model';
+import { FacadeService } from '../../services/facades/facade.service';
 import { groceriesLoadedSuccess } from '../actions/grocery-api.actions';
 import { groceriesPageActions } from '../actions/grocery-page.actions';
 
@@ -12,10 +15,18 @@ export class GroceryEffect {
 
     loadArticles$ = createEffect(() => this.actions$.pipe(
         ofType(groceriesPageActions.requestGroceries),
-        mergeMap(() => this.groceryService.getGroceries()
+        mergeMap(() => this.facadeService.getGroceries()
             .pipe(
-                map(groceries => (groceriesLoadedSuccess({ groceries }))),
-                catchError(() => EMPTY)
+                map((groceries: Grocery[]) => {
+                    this.sharedStore.getPreloader(false);
+                    this.sharedStore.getErrorMessage('');
+                    return (groceriesLoadedSuccess({ groceries }))
+                }),
+                catchError((error) => {
+                    console.log(error.message);
+                    this.sharedStore.getPreloader(false);
+                    return (of(sharedActions.getErrorMessage(error)));
+                })
             ))
         ),
         { useEffectsErrorHandler: false } 
@@ -23,6 +34,7 @@ export class GroceryEffect {
 
     constructor(
         private actions$: Actions,
-        private groceryService: GroceryService
+        private facadeService: FacadeService,
+        private sharedStore: SharedStoreFacade,
     ) { }
 }

@@ -1,16 +1,42 @@
 <section class="home__container home">
-    <h1>
-        Catalog grocery ✨
-    </h1>
-    <ul>
-        <li>
-            <ng-container *ngIf="grocery$ | async as groceries">
-                <app-grocery 
-                    *ngFor="let grocery of groceries trackBy: trackByFn"
-                    [grocery]="grocery"
-                    >
-                </app-grocery>
-            </ng-container>
-        </li>
-    </ul>
+
+    <ng-container *ngIf="errorMessage$ | async as errorMessage else showGrocery">
+        <h1>
+            Grosery is empty
+        </h1>
+        <strong>
+            Error from backend: {{ errorMessage }}
+        </strong>
+    </ng-container>
+
+    <ng-container *ngIf="isPreloader$ | async">
+        <img 
+            class="home__loader loader"
+            src="assets/images/loader.gif"
+            alt="Loading!!!"
+        />
+    </ng-container>
+
+    <ng-template #showGrocery>
+        <h1>
+            Catalog grocery ✨
+        </h1>
+        <ul>
+            <li>
+                <ng-container *ngIf="grocery$ | async as groceries">
+                    <app-grocery 
+                        *ngFor="let grocery of groceries trackBy: trackByFn"
+                        [grocery]="grocery"
+                        >
+                        <!-- <img 
+                            #contentImage
+                            *ngIf="isPreloader$ | async"
+                            src="assets/images/ZC9Y.gif"
+                        /> -->
+                    </app-grocery>
+                </ng-container>
+            </li>
+        </ul>
+    </ng-template>
+
 </section>
