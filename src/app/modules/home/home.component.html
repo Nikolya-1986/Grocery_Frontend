@@ -28,11 +28,18 @@
                         *ngFor="let grocery of groceries trackBy: trackByFn"
                         [grocery]="grocery"
                         >
-                        <!-- <img 
+                        <img 
+                            imageCart 
+                            src="assets/images/cart.png"
                             #contentImage
-                            *ngIf="isPreloader$ | async"
-                            src="assets/images/ZC9Y.gif"
-                        /> -->
+                            (click)="addToCart(grocery)"
+                        />
+                        <img 
+                            imageMachine
+                            src="assets/images/weighing-machine.png"
+                            #contentImage
+                            (click)="aboutCalories(grocery.nutritionalId)"
+                        />
                     </app-grocery>
                 </ng-container>
             </li>

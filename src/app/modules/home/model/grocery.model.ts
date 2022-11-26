@@ -1,5 +1,5 @@
 export interface Grocery {
-    id: string,
+    id: number,
     name: string,
     price: number,
     cookTime: string,
@@ -10,5 +10,5 @@ export interface Grocery {
     imageUrl: string,
     categories: string[],
     available: boolean,
-    nutritionalId: string
+    nutritionalId: number
 }

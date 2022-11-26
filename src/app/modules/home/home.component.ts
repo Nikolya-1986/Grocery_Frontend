@@ -39,4 +39,13 @@ export class HomeComponent implements OnInit {
     return item;
   };
 
+  public addToCart(grocery: Grocery) {
+    console.log(grocery);
+    this.groceryStore.addIGroceryToCart(grocery);
+  }
+
+  public aboutCalories(id: number) {
+    console.log((id)); 
+  }
+
 }

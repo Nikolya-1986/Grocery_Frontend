@@ -41,8 +41,20 @@
         </div>
     </div>
     <div class="grocery__footer content">
-        <p>
+        <span>
             {{ grocery.price | currency }} / {{ grocery.weight }} gr.
-        </p>
+        </span>
+        <div>
+            <ng-content select=[imageMachine]></ng-content>
+            <ng-content select="[imageCart]"></ng-content>
+        </div>
+        <!-- <ul>
+            <li>
+                <ng-content select=[imageMachine]></ng-content>
+            </li>
+            <li>
+                <ng-content select="[imageCart]"></ng-content>
+            </li>
+        </ul> -->
     </div>
 </section>

@@ -35,7 +35,7 @@ export class FacadeService {
     public getGroceries(): Observable<Grocery[]> {
         return this.groceryService.getGroceries().pipe(
             retry(3),
-            delay(6000),
+            delay(3000),
             catchError(this.errorService.errorsBackend.bind(this)),
         );
     };
