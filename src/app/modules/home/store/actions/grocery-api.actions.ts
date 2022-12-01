@@ -4,6 +4,6 @@ import { Grocery } from "../../model/grocery.model";
 
 
 export const groceriesLoadedSuccess = createAction(
-    '[Groceries API] Groceries Are Loaded Successfully',
+    '[Groceries API] Groceries are loaded successfully',
     props<{ groceries: Grocery[] }>(),
 );

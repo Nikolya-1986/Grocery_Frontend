@@ -6,8 +6,8 @@ import { Grocery } from "../../model/grocery.model";
 export const groceriesPageActions = createActionGroup({
     source: 'Groceries/Page',
     events: {
-        'Request Groceries': emptyProps(),
-        'Add Grocery To Cart': props<{ grocery: Grocery }>(),
-        'Open Cart': emptyProps(),
+        'Request groceries': emptyProps(),
+        'Add grocery to cart': props<{ grocery: Grocery }>(),
+        'Open cart': emptyProps(),
     }
 });
