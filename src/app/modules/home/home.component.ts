@@ -13,7 +13,7 @@ import { GroceryStoreFasade } from './store/grocery.facade';
 })
 export class HomeComponent implements OnInit {
 
-  public grocery$!: Observable<Grocery[]>;
+  public groseries$!: Observable<Grocery[]>;
   public isPreloader$!: Observable<boolean>;
   public errorMessage$!: Observable<string>;
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   public downloadData(): void {
     this.groceryStore.getGroceries();
     this.sharedStore.getPreloader(true);
-    this.grocery$ = this.groceryStore.groseries$;
+    this.groseries$ = this.groceryStore.groseries$;
     this.isPreloader$ = this.sharedStore.preloader$;
     this.errorMessage$ = this.sharedStore.errorMessage$;
   };

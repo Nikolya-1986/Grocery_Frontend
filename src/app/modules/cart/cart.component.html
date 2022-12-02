@@ -1,1 +1,31 @@
-<p>cart works!</p>
+<ng-container *ngIf=" cartItems$ | async as cartItems">
+    <article class="cart__grocery cart">
+        <button (click)="closeCart()">
+            Return to grocery
+        </button>
+        <h1>
+            My cart 🛒
+        </h1>
+        <ng-container *ngIf="cartItems.length > 0; then totalBlock else emptyBlock"></ng-container>
+    
+        <ng-template #totalBlock>
+            <p *ngIf="cartItems.length > 0">
+                Total: {{ (totalPrice$ | async) | currency }}
+            </p>
+        </ng-template>
+        <ng-template #emptyBlock>
+            <span *ngIf="cartItems.length === 0">
+                Empty cart 🕵🏻
+            </span>
+        </ng-template>
+    
+        <app-cart-item 
+            *ngFor="let cartItem of cartItems" 
+            [cartItem]="cartItem"
+            >
+    
+        </app-cart-item>
+        
+    </article>
+
+</ng-container>

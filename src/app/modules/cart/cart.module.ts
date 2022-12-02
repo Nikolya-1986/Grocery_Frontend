@@ -7,11 +7,13 @@ import { StoreModule } from '@ngrx/store';
 import { cartReducer } from './store/reducer/cart-grocery.reducer';
 import { CartEffect } from './store/effects/cart.effect';
 import { CartRoutingModule } from './cart-routing.module';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
 
 
 @NgModule({
   declarations: [
-    CartComponent
+    CartComponent,
+    CartItemComponent
   ],
   imports: [
     CommonModule,

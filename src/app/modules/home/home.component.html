@@ -23,7 +23,7 @@
         </h1>
         <ul>
             <li>
-                <ng-container *ngIf="grocery$ | async as groceries">
+                <ng-container *ngIf="groseries$ | async as groceries">
                     <app-grocery 
                         *ngFor="let grocery of groceries trackBy: trackByFn"
                         [grocery]="grocery"
