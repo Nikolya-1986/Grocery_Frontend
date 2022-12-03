@@ -1,13 +1,13 @@
-import { CatrGrocery } from "../../model/cart-grocery.model";
+import { CartItem } from "../../model/cart-item.model";
 
 export interface CartFeatureState {
-    cartItems: CatrGrocery[],
-    countOfGrocery: number,
-};
+    cartItems: CartItem[],
+    countOfItems: number
+  }
 
 export const initialCartState: CartFeatureState = {
     cartItems: [],
-    countOfGrocery: 0
+    countOfItems: 0
 };
 
 export interface DegaultCartState {

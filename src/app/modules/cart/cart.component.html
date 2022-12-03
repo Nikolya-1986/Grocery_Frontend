@@ -22,6 +22,9 @@
         <app-cart-item 
             *ngFor="let cartItem of cartItems" 
             [cartItem]="cartItem"
+            (increaseItem)="onIncreaseItem($event)"
+            (reduceItem)="onReduceItem($event)"
+            (removeItem)="onRemoveItem($event)"
             >
     
         </app-cart-item>

@@ -1,11 +1,12 @@
 import { createActionGroup, props } from "@ngrx/store";
-import { CatrGrocery } from "../../model/cart-grocery.model";
+
+import { CartItem } from "../../model/cart-item.model";
 
 export const cartPageActions = createActionGroup({
     source: 'Cart/Page',
     events: {
-        'Decrease count of geocery in cart': props<{ cartItem: CatrGrocery }>(),
-        'Increase count of geocery in cart': props<{ cartItem: CatrGrocery }>(),
-        'Remove geocery from cart': props<{ cartItem: CatrGrocery  }>(),
+      'Reduce number of item in cart': props<{ cartItem: CartItem }>(),
+      'Increase number of item in cart': props<{cartItem: CartItem}>(),
+      'Remove item from cart': props<{ cartItem: CartItem }>()
     }
-});
+  })

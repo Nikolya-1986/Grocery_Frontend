@@ -1,28 +1,28 @@
 <section class="cart__container cart">
     <div class="cart__grocery">
         <span class="cart__number-of-items">
-            {{ cartItem.countOfGrocery }} x
+            {{ cartItem.countOfItems }}
         </span>
         <span class="cart__name">
-            {{ cartItem.grocery.name }}
+            {{ cartItem.item.name }}
         </span>
         <span class="cart__price">
-            {{ cartItem.grocery.price | currency }}
+            {{ cartItem.item.price | currency }}
         </span>
     
         <div class="cart__actions">
-            <button (click)="increaseItemInCart()">
-                add
+            <button (click)="increaseItemInCart(cartItem)">
+                Increase
             </button>
-            <button (click)="reduceItemInCart()">
-                remove
+            <button (click)="reduceItemInCart(cartItem)">
+                Decrease
             </button>
-            <button  (click)="removeItemFromCart()">
-                delete
+            <button  (click)="removeItemFromCart(cartItem)">
+                Delete
             </button>
         </div>
         <span class="cart__total-price">
-            {{ cartItem?.totalPrice | currency }}
+            {{ cartItem.totalPrice | currency }}
         </span>
     </div>
 </section>

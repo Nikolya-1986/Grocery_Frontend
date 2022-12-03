@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { CatrGrocery } from './model/cart-grocery.model';
+import { CartItem } from './model/cart-item.model';
 import { CartStoreFacade } from './store/cart-facade';
 
 @Component({
@@ -11,9 +11,8 @@ import { CartStoreFacade } from './store/cart-facade';
 })
 export class CartComponent implements OnInit {
 
-  public cartItems$!: Observable<CatrGrocery[]>;
+  public cartItems$!: Observable<CartItem[]>;
   public totalPrice$!: Observable<number>;
-
 
   constructor(
     private cartStore: CartStoreFacade
@@ -25,7 +24,19 @@ export class CartComponent implements OnInit {
 
   public closeCart() {
 
-  }
+  };
+
+  public onIncreaseItem(cartItem: CartItem) {
+    this.cartStore.increaseItem(cartItem);
+  };
+
+  public onReduceItem(cartItem: CartItem) {
+    this.cartStore.reduceItem(cartItem)
+  };
+
+  public onRemoveItem(cartItem: CartItem) {
+    this.cartStore.removeItem(cartItem)
+  };
 
   private downloadCart(): void {
     this.cartItems$ = this.cartStore.cartGrocery$;

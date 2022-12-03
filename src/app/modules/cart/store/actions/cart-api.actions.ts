@@ -1,5 +1,5 @@
 import { createAction } from "@ngrx/store";
 
-export const groceryAddedSuccess = createAction(
-    '[Cart Api] Grocery Added To Cart Successfuly'
-);
+export const itemAddedSuccess = createAction(
+    '[Cart/API] Item added to cart successfully'
+  );

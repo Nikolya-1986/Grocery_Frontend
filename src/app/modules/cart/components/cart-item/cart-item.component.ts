@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CatrGrocery } from '../../model/cart-grocery.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { CartItem } from '../../model/cart-item.model';
 
 @Component({
   selector: 'app-cart-item',
@@ -8,23 +9,26 @@ import { CatrGrocery } from '../../model/cart-grocery.model';
 })
 export class CartItemComponent implements OnInit {
 
-  @Input()cartItem!: CatrGrocery | any;
+  @Input() public cartItem!: CartItem | any;
+  @Output() public increaseItem: EventEmitter<CartItem> = new EventEmitter<CartItem>();
+  @Output() public reduceItem: EventEmitter<CartItem> = new EventEmitter<CartItem>();
+  @Output() public removeItem: EventEmitter<CartItem> = new EventEmitter<CartItem>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public increaseItemInCart(): void{
-
+  public increaseItemInCart(cartItem: CartItem): void{
+    this.increaseItem.emit(cartItem);
   };
 
-  public reduceItemInCart(): void{
-    
+  public reduceItemInCart(cartItem: CartItem): void{
+    this.reduceItem.emit(cartItem);
   };
 
-  public removeItemFromCart(): void{
-    
+  public removeItemFromCart(cartItem: CartItem): void{
+    this.removeItem.emit(cartItem);
   }
 
 }
