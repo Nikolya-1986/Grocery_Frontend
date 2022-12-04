@@ -1,29 +1,22 @@
 .cart {
-    
-    &__grocery {
+    display: flex;
+    margin-bottom: 2rem;
+
+    &__description {
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        min-width: 100%;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
 
-        span {
-            margin: 0 2px;
+        li {
+            padding: 0 .2rem;
         }
-  
-        .cart__number-of-items {
-            min-width: 25px;
-        }
+    }
 
-        .cart__name, .cart__price {
-            min-width: 60px;
-        }
+    &__actions {
 
-        :last-child {
-            margin-left: auto;
-        }
-
-        .cart__total-price {
-            font-weight: bold;
+        button {
+            margin: 0 .3rem;
         }
     }
 

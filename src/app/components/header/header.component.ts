@@ -6,12 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  
   public logo: string = 'assets/images/logo.png';
   
-  constructor() { }
+  constructor( ) { }
 
-  ngOnInit(): void {
-  }
+  public ngOnInit(): void {
+  };
+
 
 }

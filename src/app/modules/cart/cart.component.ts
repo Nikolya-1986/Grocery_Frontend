@@ -20,10 +20,6 @@ export class CartComponent implements OnInit {
 
   public ngOnInit(): void {
     this.downloadCart();
-  }
-
-  public closeCart() {
-
   };
 
   public onIncreaseItem(cartItem: CartItem) {

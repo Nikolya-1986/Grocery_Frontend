@@ -1,6 +1,6 @@
 <ng-container *ngIf=" cartItems$ | async as cartItems">
     <article class="cart__grocery cart">
-        <button (click)="closeCart()">
+        <button routerLink="/home">
             Return to grocery
         </button>
         <h1>
@@ -18,7 +18,6 @@
                 Empty cart 🕵🏻
             </span>
         </ng-template>
-    
         <app-cart-item 
             *ngFor="let cartItem of cartItems" 
             [cartItem]="cartItem"
@@ -26,9 +25,6 @@
             (reduceItem)="onReduceItem($event)"
             (removeItem)="onRemoveItem($event)"
             >
-    
         </app-cart-item>
-        
     </article>
-
 </ng-container>
