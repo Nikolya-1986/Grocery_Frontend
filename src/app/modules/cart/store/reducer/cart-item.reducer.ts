@@ -1,15 +1,15 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { groceriesPageActions } from "../../../../modules/home/store/actions/grocery-page.actions";
+import { groceriesPageActions } from "../../../home/store/actions/grocery-page.actions";
 import { CartItem } from "../../model/cart-item.model";
 import { cartPageActions } from "../actions/cart-page.actions";
-import { CartFeatureState, initialCartState } from "./cart-grocery.state";
+import { CartFeatureState, initialCartState } from "./cart-item.state";
 
 const getNumberOfItems = (cartItems: CartItem[]): number => {
     return cartItems.reduce((partialSum, cartItem) => partialSum + cartItem.countOfItems, 0);
 };
 
-  export const cartReducer = createReducer(
+export const cartReducer = createReducer(
     initialCartState,
     on(groceriesPageActions.addGroceryToCart, (store: CartFeatureState, result) => {
         const existingItem = store.cartItems.find((cartItem) => cartItem.item.id === result.grocery.id);

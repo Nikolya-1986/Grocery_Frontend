@@ -4,8 +4,8 @@ import { Observable } from "rxjs";
 
 import { CartItem } from "../model/cart-item.model";
 import { cartPageActions } from "./actions/cart-page.actions";
-import { selectCartItems, selectCartTotalPrice } from "./reducer/cart-grocery.selector";
-import { CartFeatureState } from "./reducer/cart-grocery.state";
+import { selectCartItems, selectCartTotalPrice } from "./reducer/cart-item.selector";
+import { CartFeatureState } from "./reducer/cart-item.state";
 
 @Injectable({ 
     providedIn: 'root' 
