@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { CartFeatureState } from "../../../modules/cart/store/reducer/cart-item.state";
-import { ShellCartState } from "./shellCart.state";
+import { ShellCartState } from "./shell-cart.state";
 
 export const SHELL_CART_STATE = 'shellCart';
 const selectShellCartState = createFeatureSelector<ShellCartState>(SHELL_CART_STATE);

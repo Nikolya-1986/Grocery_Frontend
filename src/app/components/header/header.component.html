@@ -19,6 +19,21 @@
                 <a [routerLink]="['/cart']">
                     Cart
                 </a>
+                <ng-container *ngIf="countOfItems$ | async as countOfItems">
+                    <small>
+                        <ng-container *ngIf="countOfItems; then countBlock else emptyBlock"></ng-container>
+                        <ng-template #countBlock>
+                            <span>
+                                {{ countOfItems }}
+                            </span>
+                        </ng-template>
+                        <ng-template #emptyBlock>
+                            <span>
+                                0
+                            </span>
+                        </ng-template>
+                    </small>
+                </ng-container>
             </li>
         </ul>
     </nav>

@@ -12,12 +12,22 @@ import * as sharedSelector from "../shared/reducers/shared.selector";
 })
 export class SharedStoreFacade {
     
-    public preloader$: Observable<boolean> = this.sharedStore.pipe(select(sharedSelector.selectPreloader));
-    public errorMessage$: Observable<string> = this.sharedStore.pipe(select(sharedSelector.selectErrorMessage));
+    private preloader$!: Observable<boolean>;
+    private errorMessage$!: Observable<string>;
 
     constructor(
         private sharedStore: Store<SharedFeatureState>
-    ) {}
+    ) { }
+
+    public get preloader(): Observable<boolean> {
+        this.preloader$ = this.sharedStore.pipe(select(sharedSelector.selectPreloader));
+        return this.preloader$;
+    };
+
+    public get errorMessage(): Observable<string> {
+        this.errorMessage$ = this.sharedStore.pipe(select(sharedSelector.selectErrorMessage));
+        return this.errorMessage$;
+    };
 
     public getPreloader(status: boolean): void {
         this.sharedStore.dispatch(sharedActions.setPreloader({ status }));

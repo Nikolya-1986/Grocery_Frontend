@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
   public downloadData(): void {
     this.groceryStore.getGroceries();
     this.sharedStore.getPreloader(true);
-    this.groseries$ = this.groceryStore.groseries$;
-    this.isPreloader$ = this.sharedStore.preloader$;
-    this.errorMessage$ = this.sharedStore.errorMessage$;
+    this.groseries$ = this.groceryStore.groseries;
+    this.isPreloader$ = this.sharedStore.preloader;
+    this.errorMessage$ = this.sharedStore.errorMessage;
   };
 
   public trackByFn(ind: number, item: any): number {

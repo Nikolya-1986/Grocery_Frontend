@@ -12,15 +12,22 @@ import { CartFeatureState } from "./reducer/cart-item.state";
 })
 export class CartStoreFacade {
     
-    public cartGrocery$: Observable<CartItem[]>;
-    public totalPrice$: Observable<number>;
+    private cartGrocery$!: Observable<CartItem[]>;
+    private totalPrice$!: Observable<number>;
 
     constructor(
         private cartStore: Store<CartFeatureState> 
-    ) {
+    ) { }
+
+    public get cartGrocery(): Observable<CartItem[]> {
         this.cartGrocery$ = this.cartStore.pipe(select(selectCartItems));
+        return this.cartGrocery$;
+    };
+
+    public get totalPrice(): Observable<number> {
         this.totalPrice$ = this.cartStore.pipe(select(selectCartTotalPrice));
-    }
+        return this.totalPrice$;
+    };
 
     public increaseItem(cartItem: CartItem): void {
         this.cartStore.dispatch(cartPageActions.increaseNumberOfItemInCart({ cartItem }));
@@ -32,5 +39,6 @@ export class CartStoreFacade {
 
     public removeItem(cartItem: CartItem): void {
         this.cartStore.dispatch(cartPageActions.removeItemFromCart({ cartItem }));
-    }
+    };
+    
 }

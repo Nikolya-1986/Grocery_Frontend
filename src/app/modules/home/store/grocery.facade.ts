@@ -13,13 +13,16 @@ import { GroceryFeatureState } from "./reducers/grocery.state";
 })
 export class GroceryStoreFasade {
 
-    public groseries$!: Observable<Grocery[]>;
+    private groseries$!: Observable<Grocery[]>;
 
     constructor(
         private storeGrosery: Store<GroceryFeatureState> 
-    ) {
+    ) { }
+
+    public get groseries(): Observable<Grocery[]> {
         this.groseries$ = this.storeGrosery.pipe(select(selectGroceries));
-    }
+        return this.groseries$;
+    };
 
     public getGroceries(): void {
         this.storeGrosery.dispatch(groceriesPageActions.requestGroceries());

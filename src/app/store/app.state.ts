@@ -6,9 +6,9 @@ import { CartFeatureState } from '../modules/cart/store/reducer/cart-item.state'
 import { sharedReucer } from './shared/reducers/shared.reducer';
 import { SHARED_STATE_NAME } from './shared/reducers/shared.selector';
 import { SharedFeatureState } from './shared/reducers/shared.state';
-import { shellCartReducer } from './shellCart/reducers/shellCart.reducer';
-import { CART_FEATURE_STATE, SHELL_CART_STATE } from './shellCart/reducers/shellCart.selector';
-import { ShellCartState } from './shellCart/reducers/shellCart.state';
+import { shellCartReducer } from './shell-cart/reducers/shell-cart.reducer';
+import { CART_FEATURE_STATE, SHELL_CART_STATE } from './shell-cart/reducers/shell-cart.selector';
+import { ShellCartState } from './shell-cart/reducers/shell-cart.state';
 
 
 export interface AppState {

@@ -35,8 +35,8 @@ export class CartComponent implements OnInit {
   };
 
   private downloadCart(): void {
-    this.cartItems$ = this.cartStore.cartGrocery$;
-    this.totalPrice$ = this.cartStore.totalPrice$;
+    this.cartItems$ = this.cartStore.cartGrocery;
+    this.totalPrice$ = this.cartStore.totalPrice;
   }
 
 }
