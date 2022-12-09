@@ -16,7 +16,6 @@ export const selectPreloader = createSelector(
 export const selectErrorMessage = createSelector(
     getSharedState,
     (state: SharedFeatureState) => {
-        console.log(state.errorMessage);
         return state.errorMessage;
     }
 );

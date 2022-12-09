@@ -2,7 +2,6 @@ import { createActionGroup, emptyProps, props } from "@ngrx/store";
 
 import { Grocery } from "../../model/grocery.model";
 
-
 export const groceriesPageActions = createActionGroup({
     source: 'Groceries/Page',
     events: {

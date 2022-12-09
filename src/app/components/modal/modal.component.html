@@ -1,0 +1,18 @@
+<section class="modal__container modal">
+    <div class="modal__window" @modalDialog>
+        <h2>
+            {{ modalTitle }} 
+        </h2>
+        <p>
+            {{ modalBody }} {{ item.name }} ?
+        </p>
+        <div class="modal__footer">
+            <button (click)="cancelAction()">
+                Cancel
+            </button>
+            <button (click)="confirmAction()">
+                Confirm
+            </button>
+        </div>
+    </div>
+</section>

@@ -28,7 +28,7 @@ export class GroceryStoreFasade {
         this.storeGrosery.dispatch(groceriesPageActions.requestGroceries());
     };
 
-    public addIGroceryToCart(grocery: Grocery): void {
+    public addItemToCart(grocery: Grocery): void {
         this.storeGrosery.dispatch(groceriesPageActions.addGroceryToCart({ grocery }));
     }
 

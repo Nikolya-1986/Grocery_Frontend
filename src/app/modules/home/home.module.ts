@@ -6,17 +6,18 @@ import { NgRatingBarModule } from 'ng-rating-bar';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { groceryReducer } from './store/reducers/grocery.reducer';
 import { GroceryEffect } from './store/effects/grocery.effect';
 import { GroceryComponent } from './components/grocery/grocery.component';
-
+import { ModalModule } from 'src/app/components/modal/modal.module';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    GroceryComponent
+    GroceryComponent,
   ],
   imports: [
     CommonModule, 
@@ -27,6 +28,10 @@ import { GroceryComponent } from './components/grocery/grocery.component';
     NgRatingBarModule,
     StoreModule.forFeature('groceriesFeature', groceryReducer),
     EffectsModule.forFeature([GroceryEffect]),
+    ModalModule
+  ],
+  entryComponents: [
+    ModalModule
   ]
 })
 export class GroceryModule { }

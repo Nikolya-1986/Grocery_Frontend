@@ -30,9 +30,13 @@
                         >
                         <img 
                             imageCart 
+                            openModal 
+                            [title]="'Add item to cart'"
+                            [text]="'Are you sure you want to add to your shopping cart'"
+                            [data]="grocery"
+                            (confirmActionEvent)="onAddItemToCart($event)"
                             src="assets/images/cart.png"
                             #contentImage
-                            (click)="addToCart(grocery)"
                         />
                         <img 
                             imageMachine

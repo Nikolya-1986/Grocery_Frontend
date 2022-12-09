@@ -16,12 +16,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { ErrorComponent } from './components/error/error.component';
 import { appReducer } from './store/app.state';
 import { CustomSerializer } from './store/router/custom-serializer';
+import { ModalModule } from './components/modal/modal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import { CustomSerializer } from './store/router/custom-serializer';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,8 +13,6 @@ const innerSharedReucer = createReducer(
         }
     }),
     on(sharedActions.getErrorMessage, (state, action) => {
-        console.log(action.message);
-        
         return {
             ...state,
             errorMessage: action.message,
