@@ -1,0 +1,32 @@
+@import '../general/varibles.scss';
+
+.tooltip-container {
+    position: fixed;
+    @include widhtHeight;
+    z-index: 6996;
+    padding: .6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: initial;
+    text-align: center;
+    background: $color-white;
+    border: 1px solid $color-red;
+    border-radius: .3rem;
+    opacity: 0;
+    box-shadow: 0 2px 1px $color-black_2;
+    transform: translate(-50%, -30%);
+    animation: tooltip-slide 0.18s ease-out 0.5s;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+}
+
+@keyframes tooltip-slide {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -30%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}

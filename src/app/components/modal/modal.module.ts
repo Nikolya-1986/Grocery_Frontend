@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { ModalComponent } from './modal.component';
 import { ModalDirective } from './directives/modal.directive';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [

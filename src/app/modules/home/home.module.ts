@@ -13,6 +13,7 @@ import { groceryReducer } from './store/reducers/grocery.reducer';
 import { GroceryEffect } from './store/effects/grocery.effect';
 import { GroceryComponent } from './components/grocery/grocery.component';
 import { ModalModule } from 'src/app/components/modal/modal.module';
+import { DirectivesModule } from 'src/app/directives/directive.module';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,11 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
     NgRatingBarModule,
     StoreModule.forFeature('groceriesFeature', groceryReducer),
     EffectsModule.forFeature([GroceryEffect]),
+    DirectivesModule,
     ModalModule
   ],
   entryComponents: [
+    DirectivesModule,
     ModalModule
   ]
 })

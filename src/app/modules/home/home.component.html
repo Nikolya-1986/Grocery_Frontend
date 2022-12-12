@@ -28,19 +28,29 @@
                         *ngFor="let grocery of groceries trackBy: trackByFn"
                         [grocery]="grocery"
                         >
+                        <button 
+                            tooltipDirective
+                            imageCart
+                            >
+                            <ng-template #tooltipContent>
+                                <div class="tooltip-container">
+                                    Add {{ grocery.name }} to cart
+                                </div>
+                            </ng-template>
+                            <img  
+                                openModal 
+                                [title]="'Add item to cart'"
+                                [text]="'Are you sure you want to add to your shopping cart'"
+                                [data]="grocery"
+                                (confirmActionEvent)="onAddItemToCart($event)"
+                                src="assets/images/cart.png"
+                                #contentImage
+                            />
+                        </button>
                         <img 
-                            imageCart 
-                            openModal 
-                            [title]="'Add item to cart'"
-                            [text]="'Are you sure you want to add to your shopping cart'"
-                            [data]="grocery"
-                            (confirmActionEvent)="onAddItemToCart($event)"
-                            src="assets/images/cart.png"
-                            #contentImage
-                        />
-                        <img 
-                            imageMachine
+                            toolTip
                             src="assets/images/weighing-machine.png"
+                            imageMachine
                             #contentImage
                             (click)="aboutCalories(grocery.nutritionalId)"
                         />
