@@ -50,5 +50,13 @@ export class HomeComponent implements OnInit {
     // console.log((id)); 
   };
 
+  public onScrollDown() {
+    console.log("scrolled down!!");
+  };
+
+  public onScrollUp() {
+    console.log("scrolled up!!");
+  };
+
 
 }

@@ -14,6 +14,7 @@ import { GroceryEffect } from './store/effects/grocery.effect';
 import { GroceryComponent } from './components/grocery/grocery.component';
 import { ModalModule } from 'src/app/components/modal/modal.module';
 import { DirectivesModule } from 'src/app/directives/directive.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DirectivesModule } from 'src/app/directives/directive.module';
     ReactiveFormsModule,
     HttpClientModule,
     NgRatingBarModule,
+    InfiniteScrollModule,
     StoreModule.forFeature('groceriesFeature', groceryReducer),
     EffectsModule.forFeature([GroceryEffect]),
     DirectivesModule,

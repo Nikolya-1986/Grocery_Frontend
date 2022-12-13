@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'; 
@@ -31,6 +32,7 @@ import { ModalModule } from './components/modal/modal.module';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    InfiniteScrollModule,
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, // Retains last 25 states
