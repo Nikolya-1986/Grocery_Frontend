@@ -3,9 +3,15 @@
     <div class="grocery__header">
         <div 
             class="grocery__header-wrapper"
+            [@scaleImageState]="scale"
+            (mouseenter)="onScaleImage('hover')"
+            (mouseleave)="onScaleImage('rest')"
+            (click)="onRotateImage()"
+            stopPropagation
             >
             <img 
                 src="{{ grocery.imageUrl }}"
+                [@rotatedImageState]="rotated"
             >
         </div>
     </div>
