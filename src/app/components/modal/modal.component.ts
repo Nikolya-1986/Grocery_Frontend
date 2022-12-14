@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Grocery } from '../../modules/home/model/grocery.model';
+import { Grocery } from '../../modules/home/models/grocery.model';
 import { modalWindowEffect } from './animations/modal-animation';
 
 @Component({

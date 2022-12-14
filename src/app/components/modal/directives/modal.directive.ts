@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, EventEmitter, HostListener, Input, Output, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { Grocery } from '../../../modules/home/model/grocery.model';
+import { Grocery } from '../../../modules/home/models/grocery.model';
 import { ModalComponent } from '../modal.component';
 
 @Directive({

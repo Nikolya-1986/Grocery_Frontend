@@ -5,7 +5,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 
 import { sharedActions } from '../../../../store/shared/actions/shared.action';
 import { SharedStoreFacade } from '../../../../store/shared/shared.facade';
-import { Grocery } from '../../model/grocery.model';
+import { Grocery } from '../../models/grocery.model';
 import { FacadeService } from '../../services/facades/facade.service';
 import { groceriesLoadedSuccess } from '../actions/grocery-api.actions';
 import { groceriesPageActions } from '../actions/grocery-page.actions';

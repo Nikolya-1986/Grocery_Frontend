@@ -1,4 +1,4 @@
-import { Grocery } from "../../home/model/grocery.model";
+import { Grocery } from "../../home/models/grocery.model";
 
 export interface CartItem {
   countOfItems: number;

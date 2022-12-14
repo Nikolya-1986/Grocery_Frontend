@@ -1,0 +1,41 @@
+<section class="auth__container auth">
+    <legend>
+        Log-In
+    </legend>
+    <div>
+        <label for="txtUserName" class="form-label">
+            User Name
+        </label>
+        <input
+            type="text"
+            class="form-control"
+            id="txtUserName"
+            [(ngModel)]="signUpForm.name"
+        />
+    </div>
+    <div>
+        <label for="txtEmail" class="form-label">
+            Email
+        </label>
+        <input
+            type="email"
+            class="form-control"
+            id="txtEmail"
+            [(ngModel)]="signUpForm.email"
+        />
+    </div>
+    <div>
+        <label for="txtPassword" class="form-label">
+            Password
+        </label>
+        <input
+            type="password"
+            class="form-control"
+            id="txtPassword"
+            [(ngModel)]="signUpForm.password"
+        />
+    </div>
+    <button (click)="signUp()">
+        Login
+    </button>
+</section>

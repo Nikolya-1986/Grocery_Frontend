@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 
-import { Grocery } from "../../model/grocery.model";
+import { Grocery } from "../../models/grocery.model";
 
 
 export const groceriesLoadedSuccess = createAction(

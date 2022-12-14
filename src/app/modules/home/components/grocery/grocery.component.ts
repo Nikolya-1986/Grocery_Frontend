@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, Input, QueryList, Renderer2 } from '@angular/core';
 
 import { rorateImage, scaleImage } from '../../../../animations/image-animation';
-import { Grocery } from '../../model/grocery.model';
+import { Grocery } from '../../models/grocery.model';
 
 @Component({
   selector: 'app-grocery',

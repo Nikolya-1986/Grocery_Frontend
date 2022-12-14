@@ -1,7 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
 import { catchError, delay, Observable, retry } from "rxjs";
 
-import { Grocery } from "../../model/grocery.model";
+import { Grocery } from "../../models/grocery.model";
 import { ErrorService } from "../error.service";
 import { GroceryService } from "../grocery.service";
 

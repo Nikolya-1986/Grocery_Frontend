@@ -1,4 +1,4 @@
-import { Grocery } from "../../model/grocery.model";
+import { Grocery } from "../../models/grocery.model";
 
 export interface GroceryFeatureState {
     groceries: Grocery[],

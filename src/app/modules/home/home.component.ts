@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ModalDirective } from '../../components/modal/directives/modal.directive';
 import { SharedStoreFacade } from '../../store/shared/shared.facade';
-import { Grocery } from './model/grocery.model';
+import { Grocery } from './models/grocery.model';
 import { GroceryStoreFasade } from './store/grocery.facade';
 
 @Component({

@@ -20,7 +20,8 @@
 
     &__nav {
         @include widhtHeight($w: 100%);
-
+        @include flexBox($ai: center, $jc: space-between, $fd: row, $fw: nowrap);
+        
         ul {
             @include flexBox($ai: center, $jc: start, $fd: row, $fw: nowrap);
 

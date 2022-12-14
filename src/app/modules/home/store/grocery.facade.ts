@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { Grocery } from "../model/grocery.model";
+import { Grocery } from "../models/grocery.model";
 
 import { groceriesPageActions } from "./actions/grocery-page.actions";
 import { selectGroceries } from "./reducers/grocery.selector";

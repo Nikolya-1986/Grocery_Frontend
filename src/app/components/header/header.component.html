@@ -36,5 +36,20 @@
                 </ng-container>
             </li>
         </ul>
+        <ul>
+            <li 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
+                >
+                <a [routerLink]="['/auth/log-in']">
+                    Login
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/auth/sign-up']">
+                    Signup
+                </a>
+            </li>
+        </ul>
     </nav>
 </article> 
