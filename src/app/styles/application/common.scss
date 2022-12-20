@@ -35,3 +35,20 @@ ul {
         list-style: none;
     }
 }
+
+.validation {
+    width: 100%;
+    color: var(--primary-color-1);
+
+    .error {
+        color: var.$color-red;
+    }
+
+    .waiting {
+        color: var.$color-blue;
+    }
+
+    .available {
+        color: var.$color-green;
+    }
+}  

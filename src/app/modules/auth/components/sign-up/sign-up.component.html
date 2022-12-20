@@ -1,41 +1,74 @@
-<section class="auth__container auth">
-    <legend>
-        Log-In
-    </legend>
-    <div>
-        <label for="txtUserName" class="form-label">
-            User Name
-        </label>
-        <input
-            type="text"
-            class="form-control"
-            id="txtUserName"
-            [(ngModel)]="signUpForm.name"
-        />
-    </div>
-    <div>
-        <label for="txtEmail" class="form-label">
-            Email
-        </label>
-        <input
-            type="email"
-            class="form-control"
-            id="txtEmail"
-            [(ngModel)]="signUpForm.email"
-        />
-    </div>
-    <div>
-        <label for="txtPassword" class="form-label">
-            Password
-        </label>
-        <input
-            type="password"
-            class="form-control"
-            id="txtPassword"
-            [(ngModel)]="signUpForm.password"
-        />
-    </div>
-    <button (click)="signUp()">
-        Login
-    </button>
-</section>
+<form 
+    class="auth auth__form"
+    [formGroup]="formSignUp"
+    (ngSubmit)="onSubmit()"  
+    >
+    <section class="auth__signup">
+        <h1>
+            Register
+        </h1>
+        <p>
+            Please fill in this form to create an account.
+        </p>
+        <hr>
+    
+        <app-control-accessor
+            formControlName="name"
+            [label]="'Name'"
+            [type]="'text'"
+            [placeholder]="'Enter Your Name'"
+            [isRequired]="true"
+            [patternLettersNumbers]="'^[a-zA-Z][a-zA-Z0-9]+$'"
+            >
+        </app-control-accessor>
+
+        <app-control-accessor
+            formControlName="email"
+            [label]="'Email'"
+            [type]="'text'"
+            [placeholder]="'Enter Your Email'"
+            [isRequired]="true"
+            [patternEmail]="'[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}'"
+            >
+        </app-control-accessor>
+    
+        <app-control-accessor
+            formControlName="password"
+            [label]="'Password'"
+            [type]="'text'"
+            [placeholder]="'Enter Your Password, it must have one number, letter in lower and upper case, min 8 sumbols!'"
+            [isRequired]="true"
+            [patternPassword]="'(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'"
+            >
+        </app-control-accessor>
+        <app-control-accessor
+            formControlName="passwordRepeat"
+            [label]="'Confirm password'"
+            [type]="'text'"
+            [placeholder]="'Repeat your password...'"
+            [isRequired]="true"
+            [patternPassword]="'(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'"
+            >
+        </app-control-accessor>
+        <div class="validation">
+            <small class="error"
+                *ngIf="formSignUp.controls['passwordRepeat']?.hasError('NoPassswordMatch')"
+                >
+                🚫 &nbsp; <strong>Password do not match! </strong>
+            </small>
+        </div>
+        <hr>
+    
+        <button 
+            type="submit" 
+            >
+            Signup
+        </button>
+    </section>
+    
+    <section class="auth__signin">
+        <p>
+            Already have an account? <a href="#">Sign in</a>.
+        </p>
+    </section>
+</form>

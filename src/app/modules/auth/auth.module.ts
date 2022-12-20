@@ -8,6 +8,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthService } from './services/auth.service';
+import { ControlAccessorModule } from '../../components/control-accessor/control-accessor.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AuthService } from './services/auth.service';
     ReactiveFormsModule,
     HttpClientModule,
     AuthRoutingModule,
+    ControlAccessorModule
   ],
   providers: [
     AuthService

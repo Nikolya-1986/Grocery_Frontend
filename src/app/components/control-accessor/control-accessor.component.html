@@ -1,0 +1,60 @@
+<div class="accessor">
+    <label for="formControlName">
+        <b>{{ label }}</b>
+    </label>
+    <input 
+        #formControlName
+        [type]="type" 
+        [placeholder]="placeholder" 
+        (input)="onChange(formControlName.value)" 
+        (change)="onChange(formControlName.value)" 
+        (blur)="onTouched(formControlName.value)"
+        (invalid)="onValidationChange(formControlName.value)"
+        [class.has-error]="controlDir.control?.touched && controlDir.control?.invalid"
+        [class.has-success]="controlDir.control?.dirty && controlDir.control?.valid"
+        ngDefaultControl
+    />
+
+    <div 
+        class="validation"
+        [@visibilityChanged]="controlDir.control?.touched && controlDir.control?.invalid"
+        >
+        <ng-container *ngIf="isRequired && controlDir && controlDir.control?.touched && controlDir.control?.invalid">
+            <small 
+                class="error"
+                *ngIf="isRequired"
+                >
+                🚫 &nbsp; You must provide a <strong> {{ controlDir.name }}! </strong>
+            </small>
+            <small 
+                class="error"
+                *ngIf="patternLettersNumbers"
+                >
+                🚫 &nbsp; You must provide only <strong>letters and numbers!</strong>
+            </small>
+            <small 
+                class="error"
+                *ngIf="patternEmail"
+                >
+                🚫 &nbsp; You must provide a <strong>valid {{ controlDir.name }}!</strong>
+            </small>
+            <small 
+                class="error"
+                *ngIf="patternPassword"
+                >
+                🚫 &nbsp; You must provide <strong>valid {{ controlDir.name }}!</strong>
+            </small>
+            <ng-content></ng-content>
+        </ng-container>
+        <ng-container *ngIf="controlDir.control?.dirty && controlDir.control?.pending">
+            <small class="waiting">
+                🙇 &nbsp; Checking {{ controlDir.name }}...
+            </small>
+        </ng-container>
+        <ng-container *ngIf="controlDir.control?.dirty && controlDir.control?.valid">
+            <small class="available">
+                ✅ &nbsp; Hurray, <strong> {{ controlDir.name }}</strong> valid!
+            </small>
+        </ng-container>
+    </div>
+</div>
