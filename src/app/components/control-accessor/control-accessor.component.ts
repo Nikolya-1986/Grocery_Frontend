@@ -1,108 +1,87 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Optional, Self, ViewChild, forwardRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
-import { ReplaySubject, Subject, takeUntil } from 'rxjs';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-control-accessor',
   templateUrl: './control-accessor.component.html',
   styleUrls: ['./control-accessor.component.scss'],
-  animations: [
-    trigger(
-      'visibilityChanged', [
-        state('true', style({'height': '*', 'padding-top': '4px'})),
-        state('true', style({'height': '30px', 'padding-top': '0px', 'margin-bottom': '5px'})),
-        transition('*=>*', animate('1000ms')),
-      ]
-    )
-  ],
 })
-export class ControlAccessorComponent implements  ControlValueAccessor, Validator, OnInit, AfterViewInit, OnDestroy {
+export class ControlAccessorComponent implements  ControlValueAccessor {
 
-  @ViewChild('formControlName') formControlName!: ElementRef;
-  @ViewChild(DefaultValueAccessor) defaultValueAccessor!: DefaultValueAccessor;
-  
   @Input() public label!: string;
+  @Input() public type!: string;
   @Input() public placeholder!: string;
-  @Input() public type = 'type';
-  @Input() public isRequired!: boolean;
+  @Input() public data!: string;
+  @Input() public minlength: number = 0;
+  @Input() public required: boolean = false;
   @Input() public patternLettersNumbers!: string;
   @Input() public patternEmail!: string;
   @Input() public patternPassword!: string;
+  @Input() public disabled = false;
 
-  private delegatedReplaySubject = new ReplaySubject<(_: ControlValueAccessor) => void>();
-  private destroy$: Subject<boolean> = new Subject;
-  private disabled!: boolean;
-
+  private errorMessages = new Map<string, () => string>();
+  private    validationMessages = {
+    required: 'must be is required filed!',
+    minlength: 'Сharacters should not be less than',
+    patternLettersNumbers: 'must contain onlyletters and numbers!'
+  }
+  
   constructor(
-    @Self() @Optional() public controlDir: NgControl,
+    @Self() @Optional() public ngControl: NgControl
   ) {
-    this.controlDir.valueAccessor = this;
-  };
-
-  ngOnInit(): void {
-    this.validate();
+    this.ngControl && (this.ngControl.valueAccessor = this);
+    this.errorMessages.set('required', () => `${this.label} ${this.validationMessages.required}`);
+    this.errorMessages.set('minlength', () => `${this.validationMessages.minlength} ${this.minlength}`);
+    this.errorMessages.set('patternLettersNumbers', () => `${this.label} ${this.validationMessages.patternLettersNumbers}`);
   }
 
-  public ngAfterViewInit(): void {
-    this.delegatedReplaySubject.pipe(
-      takeUntil(this.destroy$),
-    ).subscribe(res => res(this.defaultValueAccessor))
-  };
-  
-  public writeValue(value: string): void {
-    if(this.formControlName){
-      this.delegatedReplaySubject.next(valueAccessor => valueAccessor.writeValue(this.formControlName.nativeElement.value));
+  public get invalid(): boolean | null {
+    return this.ngControl ? this.ngControl.invalid : false;
+  }
+
+  public get showError(): boolean | null {
+    if (!this.ngControl) {
+      return false;
     }
-  };
+    const { dirty, touched } = this.ngControl;
+    return this.invalid ? (dirty || touched) : false;
+  }
 
-  public registerOnChange(value: (_: any) => void): void {
-    this.delegatedReplaySubject.next(() => this.onChange = value);
-  };
-
-  public registerOnTouched(value: () => void): void {
-    this.delegatedReplaySubject.next(() => this.onTouched = value);
-  };
-
-  public setDisabledState?(isDisabled: boolean): void {
-    this.delegatedReplaySubject.next(() => this.disabled = isDisabled);
-  };
-
-  public onChange(event: any) { };
-
-  public onTouched(event: any) { };
-
-  public onValidationChange(event: any) { };
-
-  public validate(): ValidationErrors | null {
-    const control = this.controlDir.control;
-    const validators: ValidatorFn[] = control?.validator ? [control.validator] : [];
-
-    if(this.isRequired) {
-      validators.push(Validators.required);
-    }
-    if(this.patternLettersNumbers) {
-      validators.push(Validators.pattern(this.patternLettersNumbers));
-    }
-    if(this.patternEmail) {
-      validators.push(Validators.pattern(this.patternEmail));
-    }
-    if(this.patternPassword) {
-      validators.push(Validators.pattern(this.patternPassword));
+  public get errors(): Array<string> {
+    if (!this.ngControl) {
+      return [];
     }
 
-    control?.setValidators(validators);
-    control?.updateValueAndValidity();
-    return validators;
-  };
+    const { errors }: ValidationErrors = this.ngControl;
+    return Object.keys(errors).map(key =>  {
+      console.log(key);
+      
+      return this.errorMessages.get(key)?.() ?? <string>errors[key] ?? key
+    });
+  }
 
-  public registerOnValidatorChange?(fn: () => void): void {
-    this.onValidationChange = fn;
-  };
+  public onChangeFn = (_: any) => {};
+  public onTouchedFn = () => {};
 
-  public ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  };
+  public registerOnChange(fn: any): void {
+    this.onChangeFn = fn;
+  }
+
+  public registerOnTouched(fn: any): void {
+    this.onTouchedFn = fn;
+  }
+
+  public setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  public writeValue(obj: any): void {
+    this.data = obj;
+    console.log(this.data);
+  }
+
+  public onChange(): void {
+    this.onChangeFn(this.data);
+  }
 
 }

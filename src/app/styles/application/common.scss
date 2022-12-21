@@ -36,19 +36,14 @@ ul {
     }
 }
 
-.validation {
-    width: 100%;
-    color: var(--primary-color-1);
-
-    .error {
-        color: var.$color-red;
-    }
-
-    .waiting {
-        color: var.$color-blue;
-    }
-
-    .available {
-        color: var.$color-green;
-    }
-}  
+button {
+    background-color: transparent;
+    padding: 0.25rem 0.5rem;
+    font-size: inherit;
+    cursor: pointer;
+}
+  
+button:disabled {
+    cursor: auto;
+    color: gray;
+}

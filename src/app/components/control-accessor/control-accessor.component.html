@@ -1,4 +1,4 @@
-<div class="accessor">
+<!-- <div class="accessor">
     <label for="formControlName">
         <b>{{ label }}</b>
     </label>
@@ -19,10 +19,10 @@
         class="validation"
         [@visibilityChanged]="controlDir.control?.touched && controlDir.control?.invalid"
         >
-        <ng-container *ngIf="isRequired && controlDir && controlDir.control?.touched && controlDir.control?.invalid">
+        <ng-container *ngIf="required && controlDir && controlDir.control?.touched && controlDir.control?.invalid">
             <small 
                 class="error"
-                *ngIf="isRequired"
+                *ngIf="required"
                 >
                 🚫 &nbsp; You must provide a <strong> {{ controlDir.name }}! </strong>
             </small>
@@ -57,4 +57,31 @@
             </small>
         </ng-container>
     </div>
+</div> -->
+
+<div 
+    class="accessor accessor-wrapper" 
+    [class.required]="required"
+    >
+	<label for="formControlName">
+        {{ label }}
+    </label>
+	<input 
+        [type]="type"
+	    [required]="required"
+	    [disabled]="disabled"
+	    [minlength]="minlength"
+	    [placeholder]="placeholder"
+	    [(ngModel)]="data"
+	    [ngModelOptions]="{standalone: true}"
+	    (input)="onChange()"
+	    (change)="onChange()"
+	    (blur)="onTouchedFn()"
+        #formControlName
+    />
+	<div class="accessor__error-message">
+        <ng-container *ngIf="showError">
+            {{ errors[0] }}
+        </ng-container>
+	</div>
 </div>
