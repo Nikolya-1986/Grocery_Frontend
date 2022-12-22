@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ControlAccessorComponent } from './control-accessor.component';
+import { SmartProfileComponent } from './smart-profile/smart-profile.component';
 @NgModule({
     declarations: [
-        ControlAccessorComponent
+        ControlAccessorComponent,
+        SmartProfileComponent
     ],
     imports: [
         CommonModule,
@@ -13,7 +15,8 @@ import { ControlAccessorComponent } from './control-accessor.component';
         ReactiveFormsModule,
     ],
     exports: [
-        ControlAccessorComponent
+        ControlAccessorComponent,
+        SmartProfileComponent
     ],
 })
-export class ControlAccessorModule { }
+export class SmartAccessorModule { }

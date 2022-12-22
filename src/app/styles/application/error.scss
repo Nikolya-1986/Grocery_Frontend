@@ -1,0 +1,9 @@
+@use '../general/varibles.scss' as var;
+
+.error {
+    display: flex;
+    flex-direction: column;
+    margin-top: -24px;
+    margin-bottom: 24px;
+    color: var.$color-red;
+}

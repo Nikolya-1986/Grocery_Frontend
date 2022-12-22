@@ -1,6 +1,6 @@
 <form 
     class="auth auth__form"
-    [formGroup]="formSignUp"
+    [formGroup]="signupForm"
     (ngSubmit)="onSubmit()"  
     >
     <section class="auth__signup">
@@ -11,8 +11,8 @@
             Please fill in this form to create an account.
         </p>
         <hr>
-
-        <app-control-accessor
+        <app-smart-profile formControlName="profile"></app-smart-profile>
+        <!-- <app-control-accessor
             label="User Name"
             type="text"
             placeholder="Please enter your name"
@@ -55,15 +55,21 @@
             [patternPassword]="'(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'"
             ngModel
             >
-        </app-control-accessor>
+        </app-control-accessor> -->
 
         <hr>
     
         <button 
             type="submit" 
-            [disabled]="formSignUp.invalid || formSignUp.pending"
+            [disabled]="signupForm.invalid || signupForm.pending"
             >
             Signup
+        </button>
+        <button 
+            type="button" 
+            (click)="resetForm()"
+            >
+            Reset
         </button>
     </section>
     
@@ -73,3 +79,13 @@
         </p>
     </section>
 </form>
+
+<section>
+    <p>
+        Form is {{ signupForm.valid ? 'Valid' : 'Invalid'}}
+    </p>
+      
+    <pre>
+        {{ signupForm.value | json }}
+    </pre>
+</section>

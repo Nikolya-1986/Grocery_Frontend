@@ -32,7 +32,7 @@ export class ControlAccessorComponent implements  ControlValueAccessor {
     this.ngControl && (this.ngControl.valueAccessor = this);
     this.errorMessages.set('required', () => `${this.label} ${this.validationMessages.required}`);
     this.errorMessages.set('minlength', () => `${this.validationMessages.minlength} ${this.minlength}`);
-    this.errorMessages.set('patternLettersNumbers', () => `${this.label} ${this.validationMessages.patternLettersNumbers}`);
+    this.errorMessages.set(`${Validators.pattern('patternLettersNumbers')}`, () => `${this.label} ${this.validationMessages.patternLettersNumbers}`);
   }
 
   public get invalid(): boolean | null {
@@ -55,7 +55,7 @@ export class ControlAccessorComponent implements  ControlValueAccessor {
     const { errors }: ValidationErrors = this.ngControl;
     return Object.keys(errors).map(key =>  {
       console.log(key);
-      
+      console.log(errors);
       return this.errorMessages.get(key)?.() ?? <string>errors[key] ?? key
     });
   }

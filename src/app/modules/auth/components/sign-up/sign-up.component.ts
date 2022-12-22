@@ -14,7 +14,7 @@ import * as validators from 'src/app/validators/password-match.validator';
 })
 export class SignUpComponent implements OnInit, OnDestroy {
 
-  public formSignUp!: FormGroup;
+  public signupForm!: FormGroup;
   private subscription: Subscription[] = [];
 
   constructor(
@@ -28,14 +28,18 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    if(this.formSignUp.valid) {
-      const user: AuthModel = this.formSignUp.getRawValue();
+    if(this.signupForm.valid) {
+      const user: AuthModel = this.signupForm.getRawValue();
       this.authService.signUp(user).subscribe((result) => {
         if(result) {
           this.router.navigate(['/auth/log-in'])
         }
       })
     }
+  };
+
+  public resetForm() {
+    this.signupForm.reset();
   };
 
   public ngOnDestroy(): void {
@@ -45,13 +49,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   private signUpReactiveForm(): void {
-    this.formSignUp = this.formBuilder.group({
-      name: [''],
-      email: [''],
-      password: [''],
-      passwordRepeat: [''],
+    this.signupForm = this.formBuilder.group({
+      profile: [],
     },
-      { validator: validators.PasswordMatchValidator.passwordMatchValidator }
+      // { validator: validators.PasswordMatchValidator.passwordMatchValidator }
     )
   };
 

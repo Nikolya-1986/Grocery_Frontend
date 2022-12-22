@@ -1,0 +1,78 @@
+<form [formGroup]="profileReactiveForm">
+    <ng-container>
+        <label for="first-name">
+            First Name
+        </label>
+        <input 
+            id="first-name"
+            type="text"
+            placeholder="Please enter your first name"
+            formControlName="firstName"  
+        />
+        <div 
+            class="error" 
+            *ngIf="firstNameControl.touched && firstNameControl.invalid"
+            >
+            <ng-container *ngIf="firstNameControl.hasError('required')">
+                <strong>🚫&nbsp;First name is required</strong>
+            </ng-container>
+            <ng-container *ngIf="firstNameControl.hasError('pattern')">
+                <strong>🚫&nbsp;First name must consist of letters or numbers</strong>
+            </ng-container>
+            <ng-container *ngIf="firstNameControl.hasError('minlength')">
+                <strong>🚫&nbsp;First name must be at least 3 haracters long</strong>
+            </ng-container>
+        </div>
+    </ng-container>
+    
+    <ng-container>
+        <label for="last-name">Last Name</label>
+        <input
+            id="last-name" 
+            type="text"
+            placeholder="Please enter your last name"
+            formControlName="lastName" 
+        />
+        <div 
+            class="error"
+            *ngIf="lastNameControl.touched && lastNameControl.invalid"
+            >
+            <ng-container *ngIf="lastNameControl.hasError('required')">
+                <strong>🚫&nbsp;Last name is required</strong>
+            </ng-container>
+            <ng-container *ngIf="lastNameControl.hasError('pattern')">
+                <strong>🚫&nbsp;Last name must consist of letters</strong>
+            </ng-container>
+            <ng-container *ngIf="lastNameControl.hasError('minlength')">
+                <strong>🚫&nbsp;Last name must be at least 3 haracters long</strong>
+            </ng-container>
+            <ng-container *ngIf="lastNameControl.hasError('maxlength')">
+                <strong>🚫&nbsp;Last name should not be longer than 15 haracters</strong>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container>
+        <label for="email">
+            Email
+        </label>
+        <input 
+            id="email"
+            type="email"
+            placeholder="Please enter your email"
+            formControlName="email"
+        />
+        <div 
+            class="error" 
+            *ngIf="emailControl.touched && emailControl.invalid"
+            >
+            <ng-container *ngIf="emailControl.hasError('required')">
+                <strong>🚫&nbsp;Email is required</strong>
+            </ng-container>
+            <ng-container *ngIf="emailControl.hasError('pattern')">
+                <strong>🚫&nbsp; Email example grocery@mail.com</strong>
+                <!-- & nbsp" - это неразрывный пробел -->
+            </ng-container>
+        </div>
+    </ng-container>
+</form>
