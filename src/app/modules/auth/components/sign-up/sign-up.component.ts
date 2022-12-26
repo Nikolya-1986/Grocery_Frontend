@@ -2,10 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthModel } from '../../models/auth-model';
+import { UserModel } from '../../models/user-model';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import * as validators from 'src/app/validators/password-match.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +28,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     if(this.signupForm.valid) {
-      const user: AuthModel = this.signupForm.getRawValue();
+      const user: UserModel = this.signupForm.getRawValue();
       this.authService.signUp(user).subscribe((result) => {
         if(result) {
           this.router.navigate(['/auth/log-in'])
@@ -51,11 +50,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private signUpReactiveForm(): void {
     this.signupForm = this.formBuilder.group({
       profile: [],
-    },
-      // { validator: validators.PasswordMatchValidator.passwordMatchValidator }
-    )
+    })
   };
-
-
 
 }

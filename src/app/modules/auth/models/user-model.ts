@@ -1,4 +1,4 @@
-export interface AuthModel {
+export interface UserModel {
     id?: string,
     profile: ProfileFormValues;
     passwords: PasswordFormValues;

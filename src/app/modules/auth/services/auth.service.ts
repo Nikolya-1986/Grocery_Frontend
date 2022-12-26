@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { AuthModel } from "../models/auth-model";
+import { UserModel } from "../models/user-model";
 
 @Injectable()
 export class AuthService  {
@@ -12,7 +12,7 @@ export class AuthService  {
         private httpClient: HttpClient
     ) {}
 
-    public signUp(payload: AuthModel) {
+    public signUp(payload: UserModel) {
         return this.httpClient.post(`${this.BASE_URL}/signup`, payload)
     }
 }

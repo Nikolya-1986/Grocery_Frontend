@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, forwardRef } fro
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { ProfileFormValues } from '../../../modules/auth/models/auth-model';
-import { CustomValidationService } from 'src/app/services/custom-validator.service';
+import { ProfileFormValues } from '../../../modules/auth/models/user-model';
+import { CustomValidationService } from '../../../services/custom-validator.service';
 
 @Component({
   selector: 'app-smart-profile',
@@ -67,8 +67,13 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
       lastName: ['', 
         [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z]+$"), Validators.minLength(3), Validators.maxLength(15)]
       ],
+      dateOfBirth: ['', 
+        [Validators.required, this.customValidator.dateBirthdayValidator.bind(this.customValidator)]
+      ],
       contacts: this.formBuilder.group({
-        contactType: ['-1', [this.customValidator.emailOrPhoneRequired()]],
+        contactType: ['-1', 
+          [this.customValidator.emailOrPhoneRequired()]
+        ],
         email: ['', 
           [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}')]
         ],
@@ -91,6 +96,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
   public onTouched: any = () => {};
 
   public ngOnInit(): void {
+   
   };
 
   public writeValue(value: any): void {
@@ -114,15 +120,12 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
     this.disabled = isDisabled;
   };
 
-  validate(_: FormControl) {
+  public validate(_: FormControl): { profile: { valid: boolean }} | null {
     return this.profileReactiveForm.valid ? null : { profile: { valid: false } };
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
-  }
-}
+  };
 
-// https://www.learmoreseekmore.com/2022/06/angular14-reactive-forms-example.html?m=1
-// https://www.freecodecamp.org/news/how-to-validate-angular-reactive-forms/
-// https://stackblitz.com/edit/angular-14-form-validation?file=src%2Fapp%2Fapp.component.ts
+}
