@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 import { ProfileFormValues } from '../../../modules/auth/models/auth-model';
+import { CustomValidationService } from 'src/app/services/custom-validator.service';
 
 @Component({
   selector: 'app-smart-profile',
@@ -25,7 +27,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
 
   public profileReactiveForm!: FormGroup;
   public disabled: boolean = false;
-  
+
   private subscriptions: Subscription[] = [];
 
   get value(): ProfileFormValues {
@@ -38,20 +40,25 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
     this.onTouched();
   };
 
-  get firstNameControl() {
-    return this.profileReactiveForm.controls['firstName'];
+  get control(): { [key: string]: AbstractControl<FormControl, FormControl> } {
+    return this.profileReactiveForm.controls;
   };
 
-  get lastNameControl() {
-    return this.profileReactiveForm.controls['lastName'];
+  get contactTypeControl(): AbstractControl<FormControl, FormControl> | null | undefined {
+    return this.profileReactiveForm.get("contacts.contactType");
   };
 
-  get emailControl() {
-    return this.profileReactiveForm.controls['email'];
+  get emailControl(): AbstractControl<FormControl, FormControl> | null | undefined {
+    return this.profileReactiveForm.get('contacts.email');
+  };
+
+  get phoneControl(): AbstractControl<FormControl, FormControl> | null | undefined {
+    return this.profileReactiveForm.get('contacts.phone');
   };
   
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private customValidator: CustomValidationService,
   ) {
     this.profileReactiveForm = this.formBuilder.group({
       firstName: ['', 
@@ -60,9 +67,16 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
       lastName: ['', 
         [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z]+$"), Validators.minLength(3), Validators.maxLength(15)]
       ],
-      email: ['', 
-        [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}')]
-      ]
+      contacts: this.formBuilder.group({
+        contactType: ['-1', [this.customValidator.emailOrPhoneRequired()]],
+        email: ['', 
+          [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}')]
+        ],
+        phone: ['', 
+          [Validators.required, Validators.pattern("^[0-9]+$")], 
+        ]
+      }),
+
     });
 
     this.subscriptions.push(
@@ -77,7 +91,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
   public onTouched: any = () => {};
 
   public ngOnInit(): void {
-  }
+  };
 
   public writeValue(value: any): void {
     if(value) {
@@ -108,3 +122,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }
+
+// https://www.learmoreseekmore.com/2022/06/angular14-reactive-forms-example.html?m=1
+// https://www.freecodecamp.org/news/how-to-validate-angular-reactive-forms/
+// https://stackblitz.com/edit/angular-14-form-validation?file=src%2Fapp%2Fapp.component.ts

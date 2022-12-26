@@ -11,15 +11,15 @@
         />
         <div 
             class="error" 
-            *ngIf="firstNameControl.touched && firstNameControl.invalid"
+            *ngIf="control['firstName'].invalid && (control['firstName'].touched || control['firstName'].dirty)"
             >
-            <ng-container *ngIf="firstNameControl.hasError('required')">
+            <ng-container *ngIf="control['firstName'].hasError('required')">
                 <strong>🚫&nbsp;First name is required</strong>
             </ng-container>
-            <ng-container *ngIf="firstNameControl.hasError('pattern')">
+            <ng-container *ngIf="control['firstName'].hasError('pattern')">
                 <strong>🚫&nbsp;First name must consist of letters or numbers</strong>
             </ng-container>
-            <ng-container *ngIf="firstNameControl.hasError('minlength')">
+            <ng-container *ngIf="control['firstName'].hasError('minlength')">
                 <strong>🚫&nbsp;First name must be at least 3 haracters long</strong>
             </ng-container>
         </div>
@@ -35,44 +35,96 @@
         />
         <div 
             class="error"
-            *ngIf="lastNameControl.touched && lastNameControl.invalid"
+            *ngIf="control['lastName'].touched && (control['lastName'].invalid || control['lastName'].dirty)"
             >
-            <ng-container *ngIf="lastNameControl.hasError('required')">
+            <ng-container *ngIf="control['lastName'].hasError('required')">
                 <strong>🚫&nbsp;Last name is required</strong>
             </ng-container>
-            <ng-container *ngIf="lastNameControl.hasError('pattern')">
+            <ng-container *ngIf="control['lastName'].hasError('pattern')">
                 <strong>🚫&nbsp;Last name must consist of letters</strong>
             </ng-container>
-            <ng-container *ngIf="lastNameControl.hasError('minlength')">
+            <ng-container *ngIf="control['lastName'].hasError('minlength')">
                 <strong>🚫&nbsp;Last name must be at least 3 haracters long</strong>
             </ng-container>
-            <ng-container *ngIf="lastNameControl.hasError('maxlength')">
+            <ng-container *ngIf="control['lastName'].hasError('maxlength')">
                 <strong>🚫&nbsp;Last name should not be longer than 15 haracters</strong>
             </ng-container>
         </div>
     </ng-container>
 
-    <ng-container>
-        <label for="email">
-            Email
-        </label>
-        <input 
-            id="email"
-            type="email"
-            placeholder="Please enter your email"
-            formControlName="email"
-        />
-        <div 
-            class="error" 
-            *ngIf="emailControl.touched && emailControl.invalid"
-            >
-            <ng-container *ngIf="emailControl.hasError('required')">
-                <strong>🚫&nbsp;Email is required</strong>
-            </ng-container>
-            <ng-container *ngIf="emailControl.hasError('pattern')">
-                <strong>🚫&nbsp; Email example grocery@mail.com</strong>
-                <!-- & nbsp" - это неразрывный пробел -->
-            </ng-container>
-        </div>
+    <ng-container formGroupName="contacts">
+        <ng-container>
+            <label for="contact-type">
+                Prefered Contact
+            </label>
+            <select
+                id="contact-type"
+                formControlName="contactType"
+                aria-label="Default select example"
+                >
+                <option value="-1">
+                    -select-
+                </option>
+                <option value="email">
+                    Email
+                </option>
+                <option value="phone">
+                    Phone
+                </option>
+            </select>
+            <div   
+                class="error" 
+                *ngIf="contactTypeControl?.invalid && (contactTypeControl?.touched || contactTypeControl?.dirty)"
+                >
+                <ng-container *ngIf="contactTypeControl?.errors?.['emailOrPhoneRequired']">
+                    <strong>🚫&nbsp;Either email or phone need to selected</strong>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-container>
+            <label for="email">
+                Email
+            </label>
+            <input 
+                id="email"
+                type="email"
+                placeholder="Please enter your email"
+                formControlName="email"
+            />
+            <div 
+                class="error" 
+                *ngIf="emailControl?.invalid && (emailControl?.touched || emailControl?.dirty)"
+                >
+                <ng-container *ngIf="emailControl?.hasError('required')">
+                    <strong>🚫&nbsp;Email is required</strong>
+                </ng-container>
+                <ng-container *ngIf="emailControl?.hasError('pattern')">
+                    <strong>🚫&nbsp; Email example grocery@mail.com</strong>
+                    <!-- & nbsp" - это неразрывный пробел -->
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-container>
+            <label for="phoneNumber">
+                Phone
+            </label>
+            <input 
+                id="phoneNumber"
+                type="text"
+                placeholder="Please enter your phone"
+                formControlName="phone"  
+            />
+            <div 
+                class="error" 
+                *ngIf="phoneControl?.invalid && (phoneControl?.touched || phoneControl?.dirty)"
+                >
+                <ng-container *ngIf="phoneControl?.hasError('required')">
+                    <strong>🚫&nbsp;Phone is required</strong>
+                </ng-container>
+                <ng-container *ngIf="phoneControl?.hasError('pattern')">
+                    <strong>🚫&nbsp;Phone must consist of numbers</strong>
+                </ng-container>
+            </div>
+        </ng-container>
     </ng-container>
 </form>
