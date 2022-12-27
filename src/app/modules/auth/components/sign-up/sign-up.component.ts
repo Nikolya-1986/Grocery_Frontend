@@ -50,6 +50,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private signUpReactiveForm(): void {
     this.signupForm = this.formBuilder.group({
       profile: [],
+      passwords: [],
     })
   };
 

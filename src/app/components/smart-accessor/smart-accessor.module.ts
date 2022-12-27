@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ControlAccessorComponent } from './control-accessor.component';
 import { SmartProfileComponent } from './smart-profile/smart-profile.component';
+import { SmartPasswordComponent } from './smart-password/smart-password.component';
 @NgModule({
     declarations: [
         ControlAccessorComponent,
-        SmartProfileComponent
+        SmartProfileComponent,
+        SmartPasswordComponent
     ],
     imports: [
         CommonModule,
@@ -16,7 +18,8 @@ import { SmartProfileComponent } from './smart-profile/smart-profile.component';
     ],
     exports: [
         ControlAccessorComponent,
-        SmartProfileComponent
+        SmartProfileComponent,
+        SmartPasswordComponent
     ],
 })
 export class SmartAccessorModule { }

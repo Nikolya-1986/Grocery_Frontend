@@ -6,8 +6,8 @@ export interface UserModel {
 export interface ProfileFormValues {
     firstName: string;
     lastName: string;
-    contacts: ContactsFormValues;
     dateOfBirth: Date;
+    contacts: ContactsFormValues;
 };
 
 export interface PasswordFormValues {

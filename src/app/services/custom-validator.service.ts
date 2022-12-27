@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -13,9 +13,24 @@ export class CustomValidationService  {
         };
     };
 
-    public dateBirthdayValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    public compareDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
         const dateOfBirth = new Date(control.value);
         const today = new Date();
         return dateOfBirth > today ? { 'dateOfBirthInvalid': true } : null;
+    };
+
+    public matchingInputsValidator(firstKey: string, secondKey: string) {
+        // return (group: FormGroup): ValidationErrors | undefined => {
+        //     if(group.controls[firstKey].value !== group.controls[secondKey].value) {
+        //         return { 'mismatch': true }
+        //     }
+        // }
+        return function (group: FormGroup): ValidationErrors | any {
+            if (group.controls[firstKey].value !== group.controls[secondKey].value) {
+              return {
+                'missmatch': true
+              };
+            }
+        };
     }
 }

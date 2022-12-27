@@ -23,10 +23,11 @@ import { CustomValidationService } from '../../../services/custom-validator.serv
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
+export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   public profileReactiveForm!: FormGroup;
   public disabled: boolean = false;
+  public data = new Date();
 
   private subscriptions: Subscription[] = [];
 
@@ -37,7 +38,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
   set value(value: ProfileFormValues) {
     this.profileReactiveForm.setValue(value);
     this.onChange(value);
-    this.onTouched();
+    this.onTouched(value);
   };
 
   get control(): { [key: string]: AbstractControl<FormControl, FormControl> } {
@@ -45,61 +46,40 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
   };
 
   get contactTypeControl(): AbstractControl<FormControl, FormControl> | null | undefined {
-    return this.profileReactiveForm.get("contacts.contactType");
+    return this.profileReactiveForm.get('contacts.contactType') as FormControl;
   };
 
   get emailControl(): AbstractControl<FormControl, FormControl> | null | undefined {
-    return this.profileReactiveForm.get('contacts.email');
+    return this.profileReactiveForm.get('contacts.email') as FormControl;
   };
 
   get phoneControl(): AbstractControl<FormControl, FormControl> | null | undefined {
-    return this.profileReactiveForm.get('contacts.phone');
+    return this.profileReactiveForm.get('contacts.phone') as FormControl;
   };
   
   constructor(
     private formBuilder: FormBuilder,
     private customValidator: CustomValidationService,
-  ) {
-    this.profileReactiveForm = this.formBuilder.group({
-      firstName: ['', 
-        [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9]+$"), Validators.minLength(3)]
-      ],
-      lastName: ['', 
-        [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z]+$"), Validators.minLength(3), Validators.maxLength(15)]
-      ],
-      dateOfBirth: ['', 
-        [Validators.required, this.customValidator.dateBirthdayValidator.bind(this.customValidator)]
-      ],
-      contacts: this.formBuilder.group({
-        contactType: ['-1', 
-          [this.customValidator.emailOrPhoneRequired()]
-        ],
-        email: ['', 
-          [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}')]
-        ],
-        phone: ['', 
-          [Validators.required, Validators.pattern("^[0-9]+$")], 
-        ]
-      }),
-
-    });
-
-    this.subscriptions.push(
-      this.profileReactiveForm.valueChanges.subscribe(value => {
-        this.onChange(value);
-        this.onTouched();
-      })
-    );
+  ) { 
+    const year = this.data.getFullYear();
+    const month = this.data.getMonth();
+    const day = this.data.getDate();
+    const hour = this.data.getHours();
+    const minutes = this.data.getMinutes();
+    const seconds = this.data.getSeconds();
+    // console.log("Today " + day + " " + month + " " + year + " year");
+    // console.log("Current time: " + hour + ":" + minutes + ":" + seconds);
+    // console.log(this.data);
   }
 
-  public onChange: any = () => {};
-  public onTouched: any = () => {};
+  public onChange: any = (value: ProfileFormValues) => {};
+  public onTouched: any = (value: ProfileFormValues) => {};
 
   public ngOnInit(): void {
-   
+    this.reactiveForm();
   };
 
-  public writeValue(value: any): void {
+  public writeValue(value: ProfileFormValues): void {
     if(value) {
       this.value = value;
     }
@@ -108,11 +88,11 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
     }
   };
 
-  public registerOnChange(fn: any): void {
+  public registerOnChange(fn: Function): void {
     this.onChange = fn;
   };
   
-  public registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: Function): void {
     this.onTouched = fn;
   };
 
@@ -126,6 +106,40 @@ export class SmartProfileComponent implements ControlValueAccessor, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  };
+
+  private reactiveForm(): void {
+    this.profileReactiveForm = this.formBuilder.group({
+      firstName: ['', 
+        [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9]+$"), Validators.minLength(3)]
+      ],
+      lastName: ['', 
+        [Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z]+$"), Validators.minLength(3), Validators.maxLength(15)]
+      ],
+      dateOfBirth: ['', 
+        [Validators.required, this.customValidator.compareDateValidator.bind(this.customValidator)]
+      ],
+      contacts: this.formBuilder.group({
+        contactType: ['-1', 
+          [this.customValidator.emailOrPhoneRequired()]
+        ],
+        email: ['', 
+          [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+.[a-z]{2,3}')]
+        ],
+        phone: ['', 
+          [Validators.required, Validators.pattern('^[0-9]+$')], 
+        ]
+      }),
+
+    });
+
+    this.subscriptions.push(
+      this.profileReactiveForm.valueChanges.subscribe(value => {
+        this.onChange(value);
+        this.onTouched(value);
+        this.profileReactiveForm.get("contacts.contactType")?.patchValue('-1', { emitEvent: false });
+      })
+    );
   };
 
 }
