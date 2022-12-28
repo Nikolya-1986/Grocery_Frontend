@@ -19,18 +19,20 @@ export class CustomValidationService  {
         return dateOfBirth > today ? { 'dateOfBirthInvalid': true } : null;
     };
 
-    public matchingInputsValidator(firstKey: string, secondKey: string) {
-        // return (group: FormGroup): ValidationErrors | undefined => {
-        //     if(group.controls[firstKey].value !== group.controls[secondKey].value) {
-        //         return { 'mismatch': true }
-        //     }
-        // }
-        return function (group: FormGroup): ValidationErrors | any {
-            if (group.controls[firstKey].value !== group.controls[secondKey].value) {
-              return {
-                'missmatch': true
-              };
+    public matchPasswordsValidator(password: string, confirmPassword: string): ValidationErrors {
+        return (formGroup: FormGroup) => {
+            const passwordControl = formGroup.controls[password];
+            const confirmPasswordControl = formGroup.controls[confirmPassword];
+        
+            if (!passwordControl || !confirmPasswordControl) {
+                return null;
+            }else if (confirmPasswordControl.errors && !confirmPasswordControl.errors["mismatch"]) {
+                return null;
+            }else  if (passwordControl.value !== confirmPasswordControl.value) {
+                return confirmPasswordControl.setErrors({ mismatch: true });
+            } else {
+                return confirmPasswordControl.setErrors(null);
             }
-        };
-    }
+        }
+      }
 }

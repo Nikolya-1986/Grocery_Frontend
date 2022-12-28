@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, forwardRef } fro
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { ProfileFormValues } from '../../../modules/auth/models/user-model';
+import { ProfileFormValues } from '../../auth/models/user-model';
 import { CustomValidationService } from '../../../services/custom-validator.service';
 
 @Component({

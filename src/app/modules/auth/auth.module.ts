@@ -8,7 +8,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthService } from './services/auth.service';
-import { SmartAccessorModule } from '../../components/smart-accessor/smart-accessor.module';
+import { SmartAccessorModule } from '../smart-accessor/smart-accessor.module';
 
 
 @NgModule({

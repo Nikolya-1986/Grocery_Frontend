@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, forwardRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { PasswordFormValues } from '../../../modules/auth/models/user-model';
+import { PasswordFormValues } from '../../auth/models/user-model';
 import { CustomValidationService } from '../../../services/custom-validator.service';
 
 @Component({
@@ -73,12 +73,15 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
   };
 
   public setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    isDisabled ? this.passwordReactiveForm.disable() : this.passwordReactiveForm.enable();
   };
 
   public validate(_: FormControl) {
     return this.passwordReactiveForm.valid ? null : { passwords: { valid: false } };
   }
+  // public validate(control: AbstractControl): ValidationErrors | null {
+  //   return this.passwordReactiveForm.valid ? null : { passwords: { valid: this.passwordReactiveForm.value, message: `Nested form is invalid ${control}` } };
+  // }
 
   public ngOnDestroy(): void {
     throw new Error('Method not implemented.');
@@ -93,7 +96,7 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
         [Validators.required]
       ],
     }, 
-      { validator: this.customValidator.matchingInputsValidator('password', 'confirmPassword') },
+      { validators: this.customValidator.matchPasswordsValidator('password', 'confirmPassword') },
     );
 
     this.subscriptions.push(
