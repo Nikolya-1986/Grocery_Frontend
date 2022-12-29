@@ -8,14 +8,18 @@ export interface ProfileFormValues {
     lastName: string;
     dateOfBirth: Date;
     contacts: ContactsFormValues;
+    favoriteFoods: FavoriteFoodsFormValues;
 };
 
 export interface PasswordFormValues {
     password: string;
     confirmPassword?: string;
 };
-
 export interface ContactsFormValues {
     email: string;
     phone: number;
 };
+
+export interface FavoriteFoodsFormValues {
+    foods: string[];
+}

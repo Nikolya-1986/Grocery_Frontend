@@ -30,15 +30,15 @@
     button {
         background-color: $color-green;
         color: $color-white;
-        padding: 16px 20px;
+        padding: 0.75rem 0.5rem;
         margin: 8px 0;
         border: none;
         cursor: pointer;
         width: 100%;
-        opacity: 0.9;
 
-        &:hover {
-            opacity: 1;
+        &:disabled {
+            cursor: not-allowed;
+            background-color: $color-gray; 
         }
     }
 

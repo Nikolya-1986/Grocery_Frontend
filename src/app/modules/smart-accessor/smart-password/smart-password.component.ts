@@ -84,7 +84,7 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
   // }
 
   public ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.subscriptions.forEach((s) => s.unsubscribe());
   };
 
   private reactiveFormPassword(): void {

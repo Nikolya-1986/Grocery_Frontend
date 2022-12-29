@@ -30,6 +30,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if(this.signupForm.valid) {
       const user: UserModel = this.signupForm.getRawValue();
       this.authService.signUp(user).subscribe((result) => {
+        console.log(result);
+        
         if(result) {
           this.router.navigate(['/auth/log-in'])
         }
@@ -51,6 +53,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.signupForm = this.formBuilder.group({
       profile: [],
       passwords: [],
+      favoriteFoods: []
     })
   };
 

@@ -38,14 +38,18 @@ ul {
 
 button {
     background-color: transparent;
-    padding: 0.25rem 0.5rem;
     font-size: inherit;
+    opacity: 0.9;
     cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
 }
   
 button:disabled {
     cursor: not-allowed;
-    color: var.$color-gray;
+    background-color: var.$color-gray;
 }
 
 label, input {

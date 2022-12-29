@@ -27,7 +27,6 @@ export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDe
 
   public profileReactiveForm!: FormGroup;
   public disabled: boolean = false;
-  public data = new Date();
 
   private subscriptions: Subscription[] = [];
 
@@ -60,17 +59,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDe
   constructor(
     private formBuilder: FormBuilder,
     private customValidator: CustomValidationService,
-  ) { 
-    const year = this.data.getFullYear();
-    const month = this.data.getMonth();
-    const day = this.data.getDate();
-    const hour = this.data.getHours();
-    const minutes = this.data.getMinutes();
-    const seconds = this.data.getSeconds();
-    // console.log("Today " + day + " " + month + " " + year + " year");
-    // console.log("Current time: " + hour + ":" + minutes + ":" + seconds);
-    // console.log(this.data);
-  }
+  ) { }
 
   public onChange: any = (value: ProfileFormValues) => {};
   public onTouched: any = (value: ProfileFormValues) => {};
@@ -137,7 +126,6 @@ export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDe
       this.profileReactiveForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched(value);
-        this.profileReactiveForm.get("contacts.contactType")?.patchValue('-1', { emitEvent: false });
       })
     );
   };

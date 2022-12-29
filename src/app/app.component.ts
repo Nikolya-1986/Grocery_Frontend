@@ -7,7 +7,20 @@ import { AsyncSubject, BehaviorSubject, ConnectableObservable, ReplaySubject, Su
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+
+  public data = new Date();
+
+  constructor(){
+    const year = this.data.getFullYear();
+    const month = this.data.getMonth();
+    const day = this.data.getDate();
+    const hour = this.data.getHours();
+    const minutes = this.data.getMinutes();
+    const seconds = this.data.getSeconds();
+    // console.log("Today " + day + " " + month + " " + year + " year");
+    // console.log("Current time: " + hour + ":" + minutes + ":" + seconds);
+    // console.log(this.data);
+  }
 }
 
 // https://xn--90aexm.xn--b1agwec.xn--p1ai/2019/10/rxjs-dlya-prodolzhajuschih/

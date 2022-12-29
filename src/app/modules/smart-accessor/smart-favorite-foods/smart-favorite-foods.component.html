@@ -1,0 +1,66 @@
+<form [formGroup]="favoriteFoodReactiveForm">
+    <ng-container formArrayName="favoriteFoods">
+        <button
+            type="button"
+            (click)="addFoodFormGroup()"
+            >
+            Add favorite food
+        </button>
+        <ng-container *ngFor="let favoriteFood of favoriteFoodsControl.controls; let i = index">
+            <section 
+                [formGroupName]="i"
+                class="favorive-food">
+                <div>
+                    <label [for]="'food' + i">
+                        Food
+                    </label>
+                    <input
+                        type="text"
+                        [id]="'food' + i"
+                        formControlName="food"
+                    />
+                    <div 
+                        class="error" 
+                        *ngIf="favoriteFoodsControl.controls[i].get('food')?.invalid && 
+                        (favoriteFoodsControl.controls[i].get('food')?.touched || favoriteFoodsControl.controls[i].get('food')?.dirty)"
+                        >
+                        <ng-container *ngIf="favoriteFoodsControl.controls[i].get('food')?.hasError('required')">
+                            <strong>🚫&nbsp;Food is required</strong>
+                        </ng-container>
+                        <ng-container *ngIf="favoriteFoodsControl.controls[i].get('food')?.hasError('pattern')">
+                            <strong>🚫&nbsp;Food must consist of letters</strong>
+                        </ng-container>
+                    </div>
+                </div>
+                <div>
+                    <label [for]="'rating' + i">
+                        Rating
+                    </label>
+                    <input
+                        type="text"
+                        [id]="'rating' + i"
+                        formControlName="rating"
+                    />
+                    <div 
+                        class="error" 
+                        *ngIf="favoriteFoodsControl.controls[i].get('rating')?.invalid && 
+                        (favoriteFoodsControl.controls[i].get('rating')?.touched || favoriteFoodsControl.controls[i].get('rating')?.dirty)"
+                        >
+                        <ng-container *ngIf="favoriteFoodsControl.controls[i].get('rating')?.hasError('required')">
+                            <strong>🚫&nbsp;Rating is required</strong>
+                        </ng-container>
+                        <ng-container *ngIf="favoriteFoodsControl.controls[i].get('rating')?.hasError('pattern')">
+                            <strong>🚫&nbsp;Rating must consist of numbers</strong>
+                        </ng-container>
+                    </div>
+                </div>
+                <button 
+                    type="button" 
+                    (click)="removeFoodFormGroup(i)"
+                    >
+                    Remove food
+                </button>
+            </section>
+        </ng-container>
+    </ng-container>
+</form>

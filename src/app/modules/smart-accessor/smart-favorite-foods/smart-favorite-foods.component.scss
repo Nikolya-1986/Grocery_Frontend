@@ -1,0 +1,14 @@
+@import '../../../styles/general/varibles.scss';
+@import '../../../styles/general/mixins.scss';
+
+:host {
+    border: 2px solid $color-turquoise;
+    display: block;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.favorive-food {
+    @include flexBox($jc: space-between);
+    padding: 1rem 0;
+}
