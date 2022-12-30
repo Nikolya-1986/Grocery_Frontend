@@ -14,6 +14,7 @@ export interface ProfileFormValues {
 export interface PasswordFormValues {
     password: string;
     confirmPassword?: string;
+    codeQuestion: CodeQuestionFormValues;
 };
 export interface ContactsFormValues {
     email: string;
@@ -22,4 +23,10 @@ export interface ContactsFormValues {
 
 export interface FavoriteFoodsFormValues {
     foods: string[];
+};
+
+export interface CodeQuestionFormValues {
+    codeQuestion: string,
+    answer: string;
+    significance: number;
 }

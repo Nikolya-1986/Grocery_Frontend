@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, forwardRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, forwardRef } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PasswordFormValues } from '../../auth/models/user-model';
 import { CustomValidationService } from '../../../services/custom-validator.service';
+import { CodeQuestions } from '../../auth/enum/auth-enum';
 
 @Component({
   selector: 'app-smart-password',
@@ -22,12 +23,19 @@ import { CustomValidationService } from '../../../services/custom-validator.serv
     }
   ]
 })
-export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
 
   public passwordReactiveForm!: FormGroup;
   public disabled: boolean = false;
+  public questions = [CodeQuestions.maiden_Name, CodeQuestions.pet_Name, CodeQuestions.favorite_Fruit];
+  public selectedQuestion!: Object | any;
+  public showAnswer: boolean = false;
   
   private subscriptions: Subscription[] = [];
+  private thirdPartyControls: { [key: string]: FormControl } = {
+    answer: new FormControl('', [Validators.required]),
+    significance: new FormControl({ value: '', disabled: true }, [Validators.required]),
+  };
 
   get value(): PasswordFormValues {
     return this.passwordReactiveForm.value;
@@ -46,11 +54,18 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
   constructor(
     private formBuilder: FormBuilder,
     private customValidator: CustomValidationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
     this.reactiveFormPassword();
   };
+
+  public ngAfterViewInit(): void {
+    this.control['codeQuestion']
+      .valueChanges.subscribe(this.onSelectedQuestionChange.bind(this));
+  }
+
 
   public onChange: any = (value: PasswordFormValues) => {};
   public onTouched: any = (value: PasswordFormValues) => {};
@@ -76,12 +91,9 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
     isDisabled ? this.passwordReactiveForm.disable() : this.passwordReactiveForm.enable();
   };
 
-  public validate(_: FormControl) {
-    return this.passwordReactiveForm.valid ? null : { passwords: { valid: false } };
-  }
-  // public validate(control: AbstractControl): ValidationErrors | null {
-  //   return this.passwordReactiveForm.valid ? null : { passwords: { valid: this.passwordReactiveForm.value, message: `Nested form is invalid ${control}` } };
-  // }
+  public validate(control: AbstractControl): ValidationErrors | null {
+    return this.passwordReactiveForm.valid ? null : { passwords: { valid: this.passwordReactiveForm.value, message: `Nested form is invalid ${control}` } };
+  };
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
@@ -95,6 +107,7 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
       confirmPassword: ['', 
         [Validators.required]
       ],
+      codeQuestion: ['']
     }, 
       { validators: this.customValidator.matchPasswordsValidator('password', 'confirmPassword') },
     );
@@ -107,6 +120,38 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
         this.onTouched(value);
       })
     )
+  };
+
+  private onSelectedQuestionChange(value: string | any): void {
+    switch(value) {
+      case('Mother is maiden name'): 
+        this.selectedQuestion = { answer: 'Karnataka', significance: 1 };
+        break;
+      case('What is your pet is name'):
+        this.selectedQuestion = { answer: 'Archi', significance: 2 };
+        break
+      case('What is your favorite fruit'):
+        this.selectedQuestion = { answer: 'Strawberry', significance: 3 };
+        break;
+    }
+    // add form controls and value
+    this.toggleControls(true, this.thirdPartyControls, this.selectedQuestion);
+  };
+
+  private toggleControls(show: boolean, formMeta: object | any, data?: { [key: string]: string } | any) {
+    this.showAnswer= show;
+    Object.keys(formMeta).forEach((formControlName) => {
+      if(!show) {
+        this.passwordReactiveForm.removeControl(formControlName);
+        return;
+      } else {
+        this.passwordReactiveForm.addControl(formControlName, formMeta[formControlName]);
+        this.passwordReactiveForm.setValidators([Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9]+$"), Validators.minLength(3)])
+        this.passwordReactiveForm.get(formControlName)?.patchValue(data[formControlName])
+      }
+    })
+    this.passwordReactiveForm.updateValueAndValidity();
+    this.changeDetectorRef.detectChanges()
   }
 
 }
