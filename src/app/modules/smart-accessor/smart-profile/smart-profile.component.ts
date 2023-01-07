@@ -44,8 +44,8 @@ export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDe
     return this.profileReactiveForm.controls;
   };
 
-  get contactTypeControl(): AbstractControl<FormControl, FormControl> | null | undefined {
-    return this.profileReactiveForm.get('contacts.contactType') as FormControl;
+  get notifyViaControl(): AbstractControl<FormControl, FormControl> | null | undefined {
+    return this.profileReactiveForm.get('contacts.notifyVia') as FormControl;
   };
 
   get emailControl(): AbstractControl<FormControl, FormControl> | null | undefined {
@@ -109,7 +109,7 @@ export class SmartProfileComponent implements ControlValueAccessor, OnInit, OnDe
         [Validators.required, this.customValidator.compareDateValidator.bind(this.customValidator)]
       ],
       contacts: this.formBuilder.group({
-        contactType: ['-1', 
+        notifyVia: ['-1', 
           [this.customValidator.emailOrPhoneRequired()]
         ],
         email: ['', 

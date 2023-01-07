@@ -79,12 +79,12 @@
 
     <ng-container formGroupName="contacts">
         <ng-container>
-            <label for="contact-type">
-                Prefered Contact
+            <label for="notify-via">
+                Notify via
             </label>
             <select
-                id="contact-type"
-                formControlName="contactType"
+                id="notify-via"
+                formControlName="notifyVia"
                 aria-label="Default select example"
                 >
                 <option value="-1">
@@ -99,9 +99,9 @@
             </select>
             <div   
                 class="error" 
-                *ngIf="contactTypeControl?.invalid && (contactTypeControl?.touched || contactTypeControl?.dirty)"
+                *ngIf="notifyViaControl?.invalid && (notifyViaControl?.touched || notifyViaControl?.dirty)"
                 >
-                <ng-container *ngIf="contactTypeControl?.errors?.['emailOrPhoneRequired']">
+                <ng-container *ngIf="notifyViaControl?.errors?.['emailOrPhoneRequired']">
                     <strong>🚫&nbsp;Either email or phone need to selected</strong>
                 </ng-container>
             </div>

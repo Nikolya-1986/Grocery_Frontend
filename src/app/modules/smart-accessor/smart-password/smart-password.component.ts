@@ -140,22 +140,18 @@ export class SmartPasswordComponent implements ControlValueAccessor, OnInit, OnD
 
   private toggleControls(show: boolean, formMeta: object | any, data?: { [key: string]: string } | any) {
     this.showAnswer= show;
-    Object.keys(formMeta).forEach((formControlName) => {
+    Object.keys(formMeta).forEach((formControlName: string) => {
       if(!show) {
         this.passwordReactiveForm.removeControl(formControlName);
         return;
       } else {
         this.passwordReactiveForm.addControl(formControlName, formMeta[formControlName]);
-        this.passwordReactiveForm.setValidators([Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9]+$"), Validators.minLength(3)])
+        this.passwordReactiveForm.controls[formControlName].setValidators([Validators.required, Validators.pattern("^[a-zA-Z][a-zA-Z0-9]+$"), Validators.minLength(3)])
         this.passwordReactiveForm.get(formControlName)?.patchValue(data[formControlName])
       }
     })
     this.passwordReactiveForm.updateValueAndValidity();
     this.changeDetectorRef.detectChanges()
-  }
+  };
 
 }
-
-// https://www.learmoreseekmore.com/2022/06/angular14-reactive-forms-example.html?m=1
-// https://www.freecodecamp.org/news/how-to-validate-angular-reactive-forms/
-// https://stackblitz.com/edit/angular-14-form-validation?file=src%2Fapp%2Fapp.component.ts
